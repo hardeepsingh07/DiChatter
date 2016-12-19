@@ -7,23 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23855F1FA89466D35247C37F /* Pods_DiChatter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DB57E6AEA2FB4006EC9E8CA /* Pods_DiChatter.framework */; };
 		EB1C46021DFCEA08004A87A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C46011DFCEA08004A87A0 /* AppDelegate.swift */; };
-		EB1C46041DFCEA08004A87A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C46031DFCEA08004A87A0 /* ViewController.swift */; };
+		EB1C46041DFCEA08004A87A0 /* vcLogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C46031DFCEA08004A87A0 /* vcLogIn.swift */; };
 		EB1C46071DFCEA08004A87A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB1C46051DFCEA08004A87A0 /* Main.storyboard */; };
 		EB1C460A1DFCEA08004A87A0 /* DiChatter.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EB1C46081DFCEA08004A87A0 /* DiChatter.xcdatamodeld */; };
 		EB1C460C1DFCEA08004A87A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB1C460B1DFCEA08004A87A0 /* Assets.xcassets */; };
 		EB1C460F1DFCEA08004A87A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB1C460D1DFCEA08004A87A0 /* LaunchScreen.storyboard */; };
+		EB1C46171DFCEA58004A87A0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB1C46161DFCEA58004A87A0 /* GoogleService-Info.plist */; };
+		EBBE24FC1E03566D00EA5F1A /* mainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBE24FB1E03566D00EA5F1A /* mainController.swift */; };
+		EBBE24FE1E03643E00EA5F1A /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBE24FD1E03643E00EA5F1A /* UserInfo.swift */; };
+		EBC0B7B51DFFB0B500FD7E2D /* vcCreateAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC0B7B41DFFB0B500FD7E2D /* vcCreateAccount.swift */; };
+		EBFC81011E07681B00B32219 /* requestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFC81001E07681B00B32219 /* requestController.swift */; };
+		EBFC81031E07683000B32219 /* friendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFC81021E07683000B32219 /* friendsController.swift */; };
+		EBFC81051E07684800B32219 /* searchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFC81041E07684800B32219 /* searchController.swift */; };
+		EBFC81071E07685A00B32219 /* settingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFC81061E07685A00B32219 /* settingsController.swift */; };
+		EBFC81091E07687800B32219 /* chatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFC81081E07687800B32219 /* chatController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2DB57E6AEA2FB4006EC9E8CA /* Pods_DiChatter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DiChatter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		81C8EB5DDAE67D1C1DC7D347 /* Pods-DiChatter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DiChatter.release.xcconfig"; path = "Pods/Target Support Files/Pods-DiChatter/Pods-DiChatter.release.xcconfig"; sourceTree = "<group>"; };
 		EB1C45FE1DFCEA08004A87A0 /* DiChatter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiChatter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB1C46011DFCEA08004A87A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EB1C46031DFCEA08004A87A0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EB1C46031DFCEA08004A87A0 /* vcLogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vcLogIn.swift; sourceTree = "<group>"; };
 		EB1C46061DFCEA08004A87A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EB1C46091DFCEA08004A87A0 /* DiChatter.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DiChatter.xcdatamodel; sourceTree = "<group>"; };
 		EB1C460B1DFCEA08004A87A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB1C460E1DFCEA08004A87A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB1C46101DFCEA08004A87A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EB1C46161DFCEA58004A87A0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EBBE24FB1E03566D00EA5F1A /* mainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mainController.swift; sourceTree = "<group>"; };
+		EBBE24FD1E03643E00EA5F1A /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		EBC0B7B41DFFB0B500FD7E2D /* vcCreateAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = vcCreateAccount.swift; sourceTree = "<group>"; };
+		EBFC81001E07681B00B32219 /* requestController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = requestController.swift; sourceTree = "<group>"; };
+		EBFC81021E07683000B32219 /* friendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = friendsController.swift; sourceTree = "<group>"; };
+		EBFC81041E07684800B32219 /* searchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchController.swift; sourceTree = "<group>"; };
+		EBFC81061E07685A00B32219 /* settingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingsController.swift; sourceTree = "<group>"; };
+		EBFC81081E07687800B32219 /* chatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chatController.swift; sourceTree = "<group>"; };
+		F150AA06D1037A36CB930B40 /* Pods-DiChatter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DiChatter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DiChatter/Pods-DiChatter.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +53,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23855F1FA89466D35247C37F /* Pods_DiChatter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B0010A8CCF0A39487C2AE006 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F150AA06D1037A36CB930B40 /* Pods-DiChatter.debug.xcconfig */,
+				81C8EB5DDAE67D1C1DC7D347 /* Pods-DiChatter.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E203A58215C7C633BB511B13 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2DB57E6AEA2FB4006EC9E8CA /* Pods_DiChatter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EB1C45F51DFCEA08004A87A0 = {
 			isa = PBXGroup;
 			children = (
 				EB1C46001DFCEA08004A87A0 /* DiChatter */,
 				EB1C45FF1DFCEA08004A87A0 /* Products */,
+				B0010A8CCF0A39487C2AE006 /* Pods */,
+				E203A58215C7C633BB511B13 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,13 +98,22 @@
 		EB1C46001DFCEA08004A87A0 /* DiChatter */ = {
 			isa = PBXGroup;
 			children = (
+				EBC0B7B41DFFB0B500FD7E2D /* vcCreateAccount.swift */,
+				EB1C46031DFCEA08004A87A0 /* vcLogIn.swift */,
+				EBBE24FB1E03566D00EA5F1A /* mainController.swift */,
+				EBBE24FD1E03643E00EA5F1A /* UserInfo.swift */,
+				EBFC81001E07681B00B32219 /* requestController.swift */,
+				EBFC81021E07683000B32219 /* friendsController.swift */,
+				EBFC81041E07684800B32219 /* searchController.swift */,
+				EBFC81061E07685A00B32219 /* settingsController.swift */,
+				EBFC81081E07687800B32219 /* chatController.swift */,
 				EB1C46011DFCEA08004A87A0 /* AppDelegate.swift */,
-				EB1C46031DFCEA08004A87A0 /* ViewController.swift */,
 				EB1C46051DFCEA08004A87A0 /* Main.storyboard */,
 				EB1C460B1DFCEA08004A87A0 /* Assets.xcassets */,
 				EB1C460D1DFCEA08004A87A0 /* LaunchScreen.storyboard */,
 				EB1C46101DFCEA08004A87A0 /* Info.plist */,
 				EB1C46081DFCEA08004A87A0 /* DiChatter.xcdatamodeld */,
+				EB1C46161DFCEA58004A87A0 /* GoogleService-Info.plist */,
 			);
 			path = DiChatter;
 			sourceTree = "<group>";
@@ -74,9 +125,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EB1C46131DFCEA08004A87A0 /* Build configuration list for PBXNativeTarget "DiChatter" */;
 			buildPhases = (
+				B3C951D0E043D524B04A7E26 /* [CP] Check Pods Manifest.lock */,
 				EB1C45FA1DFCEA08004A87A0 /* Sources */,
 				EB1C45FB1DFCEA08004A87A0 /* Frameworks */,
 				EB1C45FC1DFCEA08004A87A0 /* Resources */,
+				01DB115578BE34DEB890C00D /* [CP] Embed Pods Frameworks */,
+				84ACC794FFEBE78F52968C97 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -127,6 +181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB1C460F1DFCEA08004A87A0 /* LaunchScreen.storyboard in Resources */,
+				EB1C46171DFCEA58004A87A0 /* GoogleService-Info.plist in Resources */,
 				EB1C460C1DFCEA08004A87A0 /* Assets.xcassets in Resources */,
 				EB1C46071DFCEA08004A87A0 /* Main.storyboard in Resources */,
 			);
@@ -134,13 +189,69 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		01DB115578BE34DEB890C00D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DiChatter/Pods-DiChatter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		84ACC794FFEBE78F52968C97 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DiChatter/Pods-DiChatter-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B3C951D0E043D524B04A7E26 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EB1C45FA1DFCEA08004A87A0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				EB1C460A1DFCEA08004A87A0 /* DiChatter.xcdatamodeld in Sources */,
-				EB1C46041DFCEA08004A87A0 /* ViewController.swift in Sources */,
+				EBFC81031E07683000B32219 /* friendsController.swift in Sources */,
+				EBFC81051E07684800B32219 /* searchController.swift in Sources */,
+				EB1C46041DFCEA08004A87A0 /* vcLogIn.swift in Sources */,
+				EBFC81071E07685A00B32219 /* settingsController.swift in Sources */,
+				EBFC81091E07687800B32219 /* chatController.swift in Sources */,
+				EBFC81011E07681B00B32219 /* requestController.swift in Sources */,
+				EBC0B7B51DFFB0B500FD7E2D /* vcCreateAccount.swift in Sources */,
+				EBBE24FC1E03566D00EA5F1A /* mainController.swift in Sources */,
+				EBBE24FE1E03643E00EA5F1A /* UserInfo.swift in Sources */,
 				EB1C46021DFCEA08004A87A0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,6 +296,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -235,6 +347,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -262,6 +375,7 @@
 		};
 		EB1C46141DFCEA08004A87A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F150AA06D1037A36CB930B40 /* Pods-DiChatter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = DiChatter/Info.plist;
@@ -274,6 +388,7 @@
 		};
 		EB1C46151DFCEA08004A87A0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 81C8EB5DDAE67D1C1DC7D347 /* Pods-DiChatter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = DiChatter/Info.plist;
@@ -303,6 +418,7 @@
 				EB1C46151DFCEA08004A87A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
