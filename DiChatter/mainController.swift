@@ -68,8 +68,9 @@ class mainController: UIViewController {
             let userFriendList = value?["Friends"] as? String ?? ""
             let userRequestList = value?["Requests"] as? String ?? ""
                         
-            self.userInfo = UserInfo(id: userID!, name: userName, email: userEmail, number: userNumber, gender: userGender,
-                                         friendList: [userFriendList], requestList: [userRequestList])
+            self.userInfo = UserInfo()
+            self.userInfo?.defaultUser(id: userID!, name: userName, email: userEmail, number: userNumber, gender: userGender,
+                                       friendList: [userFriendList], requestList: [userRequestList])
            
         }) { (error) in
             self.makeAlert(title: "Ok", message: error.localizedDescription)

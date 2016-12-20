@@ -251,65 +251,99 @@
             <point key="canvasLocation" x="1192.8" y="-774.06296851574223"/>
         </scene>
         <!--Request Controller-->
-        <scene sceneID="JDo-LA-WsC">
+        <scene sceneID="mkn-MC-ok0">
             <objects>
-                <viewController id="1wm-XK-kOG" customClass="requestController" customModule="DiChatter" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="IV2-Dn-QNJ">
+                <viewController id="L1o-dB-TxU" customClass="requestController" customModule="DiChatter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IUq-6k-D5Q"/>
+                        <viewControllerLayoutGuide type="bottom" id="dYu-IM-Cf0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NeR-Ef-NE6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="defaultCell" id="b4d-ia-zg4" customClass="requestTableViewCell" customModule="DiChatter" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b4d-ia-zg4" id="QqU-8G-BR0">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fpy-2B-Bgh">
-                                            <rect key="frame" x="199" y="6" width="80" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Cochin" family="Cochin" pointSize="20"/>
-                                            <state key="normal" title="Accept"/>
-                                            <connections>
-                                                <action selector="acceptButton:" destination="b4d-ia-zg4" eventType="touchUpInside" id="whE-ER-CZP"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="twe-kf-jZQ">
-                                            <rect key="frame" x="287" y="6" width="80" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Cochin" family="Cochin" pointSize="20"/>
-                                            <state key="normal" title="Decline"/>
-                                            <connections>
-                                                <action selector="declineButton:" destination="b4d-ia-zg4" eventType="touchUpInside" id="Jwc-oQ-dV9"/>
-                                            </connections>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ki-Qt-59N">
-                                            <rect key="frame" x="16" y="11" width="150" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Cochin" family="Cochin" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                            <size key="shadowOffset" width="0.0" height="-2"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="fullBackground" translatesAutoresizingMaskIntoConstraints="NO" id="juA-1U-raH">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="59" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x1c-Xs-Qku">
+                                <rect key="frame" x="16" y="81" width="343" height="566"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="rCell" rowHeight="59" id="gD1-Nv-L3b" customClass="requestTableViewCell" customModule="DiChatter" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="59"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gD1-Nv-L3b" id="ayk-9z-kqp">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="59"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dl1-6y-1yH">
+                                                    <rect key="frame" x="17" y="14" width="180" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Cochin" family="Cochin" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fvs-JN-4eu">
+                                                    <rect key="frame" x="295" y="9" width="40" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="declineGrey"/>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="giX-tS-0YH">
+                                                    <rect key="frame" x="17" y="26" width="174" height="29"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Cochin" family="Cochin" pointSize="17"/>
+                                                    <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tSl-Qg-oJS">
+                                                    <rect key="frame" x="247" y="9" width="40" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="acceptTorquise"/>
+                                                </button>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="rAccept" destination="tSl-Qg-oJS" id="ADU-GD-bHS"/>
+                                            <outlet property="rDecline" destination="Fvs-JN-4eu" id="7NI-ni-KJu"/>
+                                            <outlet property="rEmail" destination="giX-tS-0YH" id="ap3-HR-F4e"/>
+                                            <outlet property="rName" destination="dl1-6y-1yH" id="KPs-4t-tKK"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="acceptButton" destination="fpy-2B-Bgh" id="UvL-Ql-dZN"/>
-                                    <outlet property="declineButton" destination="twe-kf-jZQ" id="HhG-VA-J0a"/>
-                                    <outlet property="labelName" destination="0Ki-Qt-59N" id="dnL-Qv-Fuk"/>
+                                    <outlet property="dataSource" destination="L1o-dB-TxU" id="VoU-oN-8eV"/>
+                                    <outlet property="delegate" destination="L1o-dB-TxU" id="TAo-SX-pPI"/>
                                 </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="1wm-XK-kOG" id="F63-He-8lg"/>
-                            <outlet property="delegate" destination="1wm-XK-kOG" id="nEH-hd-XsX"/>
-                        </connections>
-                    </tableView>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wui-aL-DfE">
+                                <rect key="frame" x="16" y="28" width="343" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Cochin" family="Cochin" pointSize="30"/>
+                                <state key="normal" title="Requests">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="fV9-RO-ZXt" kind="show" id="ZJH-Qw-vrx"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="requestButtonOutlet" destination="Wui-aL-DfE" id="b6h-Oy-mYS"/>
+                        <outlet property="tView" destination="x1c-Xs-Qku" id="z9s-8F-aJQ"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Bgv-fj-N4e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mSz-Nd-rE0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2693.5999999999999" y="-1122.1889055472266"/>
+            <point key="canvasLocation" x="2581.5999999999999" y="-1105.0974512743628"/>
         </scene>
         <!--Friends Controller-->
         <scene sceneID="s64-yR-UUN">
@@ -405,11 +439,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="Qk8-V5-nVI"/>
                     <connections>
-                        <segue destination="1wm-XK-kOG" kind="show" identifier="mainToRequest" id="g85-Qy-lJy"/>
                         <segue destination="XdA-bo-swJ" kind="show" identifier="mainToFriend" id="j1F-7y-vze"/>
                         <segue destination="c1I-K2-yTQ" kind="show" identifier="mainToSearch" id="ff4-3t-ghc"/>
                         <segue destination="lCg-4y-22r" kind="show" identifier="mainToSettings" id="Cly-I1-0rK"/>
                         <segue destination="k9x-rh-Hab" kind="show" identifier="mainToChat" id="M0h-Ct-lPq"/>
+                        <segue destination="L1o-dB-TxU" kind="show" identifier="mainToRequest" id="sAf-nv-hFb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5af-A6-HpG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -472,7 +506,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="acceptTorquise" width="100" height="100"/>
         <image name="chatWhite" width="100" height="100"/>
+        <image name="declineGrey" width="100" height="100"/>
         <image name="friendWhite" width="100" height="100"/>
         <image name="fullBackground" width="790" height="1330"/>
         <image name="locationWhite" width="100" height="100"/>
@@ -482,6 +518,6 @@
         <image name="settingWhite" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Y4K-kD-7QR"/>
+        <segue reference="ZJH-Qw-vrx"/>
     </inferredMetricsTieBreakers>
 </document>

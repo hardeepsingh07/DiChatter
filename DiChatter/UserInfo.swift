@@ -18,9 +18,21 @@ public class UserInfo{
     var gender: String
     var friendList = [String]();
     var requestList = [String]();
+
     
     //defaut Constructor
-    public init(id: String, name: String, email: String, number: String, gender: String, friendList: [String], requestList: [String]){
+    public init(){
+        self.id = ""
+        self.name = ""
+        self.email = ""
+        self.number = ""
+        self.gender =  ""
+        self.friendList = []
+        self.requestList = []
+    }
+    
+    //for self User
+    func defaultUser(id: String, name: String, email: String, number: String, gender: String, friendList: [String], requestList: [String]) {
         self.id = id
         self.name = name
         self.email = email
@@ -28,6 +40,14 @@ public class UserInfo{
         self.gender =  gender
         self.friendList = friendList
         self.requestList = requestList
+    }
+    
+    //for request/friends users
+    func customUser(id: String, name: String, email: String) {
+        self.id = id
+        self.name = name
+        self.email = email
+        
     }
     
     //Getters
