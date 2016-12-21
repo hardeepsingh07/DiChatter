@@ -26,6 +26,9 @@ class vcLogin : UIViewController {
         //add image icons to textfields
         addImageTextView(textView: emailTextView, image: #imageLiteral(resourceName: "usernameWhite"))
         addImageTextView(textView: passwordTextView, image: #imageLiteral(resourceName: "passwordWhite"))
+        
+        emailTextView.text = "hardeep07@yahoo.com"
+        passwordTextView.text = "123456"
                 
     }
     

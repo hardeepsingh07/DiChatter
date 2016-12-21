@@ -17,24 +17,31 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
     var ref: FIRDatabaseReference!
     @IBOutlet weak var tView: UITableView!
     @IBOutlet weak var requestButtonOutlet: UIButton!
+    let defaults = UserDefaults.standard
     
-    var friends = [String]()
-    var requests = [String]()
-    var allUsers = [UserInfo]()
-    var requestWithInfo = [UserInfo]()
+    var userRequests = [UserInfo]()
+    var userFriends = [UserInfo]();
+    
+    var currentUser: UserInfo!
     
     //Start Loading Data before View
     override func viewWillAppear(_ animated: Bool) {
-        getUsers()
-        getCurrentUserData()
+        //Intialize the Database
+        ref = FIRDatabase.database().reference()
+        
+        //get current user info
+        if let savedPeople = defaults.object(forKey: "user") as? Data {
+            currentUser = (NSKeyedUnarchiver.unarchiveObject(with: savedPeople) as! [UserInfo])[0]
+        }
+        
+        //Get Data for Request and Friends
+        getUserData(type: "Requests")
+        getUserData(type: "Friends")
     }
     
     //Hide attributes till data is retrieved
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //Intialize the Database
-        ref = FIRDatabase.database().reference()
         
         //load after the data retrival
         requestButtonOutlet.alpha = 0.0
@@ -43,9 +50,6 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //compute data
-        self.computeResults()
-        
         //Animate ScreenLabel
         self.animateRequestLabel()
         
@@ -83,14 +87,14 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return requestWithInfo.count
+        return userRequests.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "rCell", for: indexPath) as! requestTableViewCell
         
-        cell.rName.text = requestWithInfo[indexPath.row].getName()
-        cell.rEmail.text = requestWithInfo[indexPath.row].getEmail()
+        cell.rName.text = userRequests[indexPath.row].getName()
+        cell.rEmail.text = userRequests[indexPath.row].getEmail()
         cell.rAccept.tag = indexPath.row
         cell.rDecline.tag = indexPath.row
         
@@ -99,69 +103,67 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
         return cell
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    
+    
     @IBAction func accept(_ sender: UIButton) {
-        print("Status: Accepted" + String(sender.tag))
-        //Animate ScreenLabel
-        self.animateRequestLabel()
+        let userInfo = userRequests[sender.tag]
         
-        //reload table
+        //move to friends list
+        self.ref.child("Users").child(currentUser.getId()).child("Friends").child(userInfo.getId())
+            .setValue(["Name": userInfo.getName(), "Email": userInfo.getEmail()])
+        
+        //add to current user to requestee friend list
+        self.ref.child("Users").child(userInfo.getId()).child("Friends").child(currentUser.getId())
+            .setValue(["Name": currentUser.getName(), "Email": currentUser.getEmail()])
+        
+        //remove from request list
+        self.ref.child("Users").child(currentUser.getId()).child("Requests").child(userInfo.getId()).removeValue()
+        
+        //remove from table
+        self.userRequests.remove(at: sender.tag)
         self.tView.reloadData()
         
-        //Animate TableView
-        self.animateTable()
+        //show success alert
+        self.makeAlert(title: "Success", message: "You are now friends with " + userInfo.getName())
     }
     
     @IBAction func decline(_ sender: UIButton) {
-        print("Status: Declined" + String(sender.tag))
-
+        //remove from table
+        self.userRequests.remove(at: sender.tag)
+        self.tView.reloadData()
     }
     
-    //get all user information
-    func getUsers() {
-        ref.child("Users").observe(.value, with: { (snapshot) in
+    //get User Requests 
+    func getUserData(type: String) {
+        ref.child("Users").child(currentUser.getId()).child(type).observe(.value, with: { (snapshot) in
             for user in snapshot.children {
-                let userId = ((user as! FIRDataSnapshot).key)
-                let name = ((user as! FIRDataSnapshot).value! as! NSDictionary)["Name"] as! String
-                let email = ((user as! FIRDataSnapshot).value! as! NSDictionary)["Email"] as! String
+                let fId = (user as! FIRDataSnapshot).key
                 
-                let userInfo = UserInfo()
-                userInfo.customUser(id: userId, name: name, email: email)
-                self.allUsers.append(userInfo)
+                let dictionary = (user as! FIRDataSnapshot).value! as! NSDictionary
+                let fName = dictionary["Name"] as! String
+                let fEmail = dictionary["Email"] as! String
                 
-                print("******* GetUsers: " + userId + name + email)
-             }
-        }) { (error) in
-            self.makeAlert(title: "Ok", message: error.localizedDescription)
-        }
-    }
-    
-    //get current user friends and request list
-    func getCurrentUserData() {
-        let userID = FIRAuth.auth()?.currentUser?.uid
-        ref.child("Users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value directory
-            let value = snapshot.value as? NSDictionary
-            self.friends = value?["Friends"] as? [String] ?? []
-            self.requests = value?["Requests"] as? [String] ?? []
-            print("******* getCurrentUserData -> Friends: " + self.friends[0])
-            print("******* getCurrentUserData -> Requests: " + self.requests[0])
-        }) { (error) in
-            self.makeAlert(title: "Ok", message: error.localizedDescription)
-        }
-
-    }
-    
-    //Compute and retrive all requestor data
-    func computeResults() {
-        print("******* computerResults: Start")
-        for requestee in requests {
-            print("********* computerResults -> Requestee: " + requestee)
-            for user in allUsers {
-                if(user.id == requestee) {
-                    print("*************** computerResults: -> User.ID: " + user.id)
-                    requestWithInfo.append(user)
+                let userInfo = UserInfo(id: fId, name: fName, email: fEmail)
+                
+                if(type == "Requests") {
+                    self.userRequests.append(userInfo)
+                } else {
+                    self.userFriends.append(userInfo)
                 }
             }
+        }) { (error) in
+            self.makeAlert(title: "Error", message: error.localizedDescription)
         }
     }
     
@@ -173,60 +175,28 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
         alertController.addAction(action)
         self.present(alertController, animated:true, completion: nil)
     }
-    
-    //refresh table view
-    func do_table_refresh()
-    {
-        DispatchQueue.main.async (execute: {
-            self.tView.reloadData()
-            return
-        })
-    }
 }
 
-/*
- // Override to support conditional editing of the table view.
- override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
- // Return false if you do not want the specified item to be editable.
- return true
- }
- */
-//self.makeAlert(title: "Ok", message: error.localizedDescription)
 
-/*
- // Override to support editing the table view.
- override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
- if editingStyle == .delete {
- // Delete the row from the data source
- tableView.deleteRows(at: [indexPath], with: .fade)
- } else if editingStyle == .insert {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
 
-/*
- // Override to support rearranging the table view.
- override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
- 
- }
- */
 
-/*
- // Override to support conditional rearranging of the table view.
- override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
- // Return false if you do not want the item to be re-orderable.
- return true
- }
- */
 
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destinationViewController.
- // Pass the selected object to the new view controller.
- }
- */
+//    //get all user information
+//    func getUsers() {
+//        ref.child("Users").observe(.value, with: { (snapshot) in
+//            for user in snapshot.children {
+//                let userId = ((user as! FIRDataSnapshot).key)
+//                let name = ((user as! FIRDataSnapshot).value! as! NSDictionary)["Name"] as! String
+//                let email = ((user as! FIRDataSnapshot).value! as! NSDictionary)["Email"] as! String
+//
+//                let userInfo = UserInfo()
+//                userInfo.customUser(id: userId, name: name, email: email)
+//                self.allUsers.append(userInfo)
+//
+//                print("******* GetUsers: " + userId + name + email)
+//             }
+//        }) { (error) in
+//            self.makeAlert(title: "Ok", message: error.localizedDescription)
+//        }
+//    }
 

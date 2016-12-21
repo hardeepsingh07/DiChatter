@@ -15,6 +15,7 @@ class mainController: UIViewController {
     
     var userInfo: UserInfo?
     var ref: FIRDatabaseReference!
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,25 +56,25 @@ class mainController: UIViewController {
     
     
     func getUserData() {
-        let userID = FIRAuth.auth()?.currentUser?.uid
-        ref.child("Users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value directory
-            let value = snapshot.value as? NSDictionary
-            
-            //Get Fields
-            let userName = value?["Name"] as? String ?? ""
-            let userEmail = value?["Email"] as? String ?? ""
-            let userNumber = value?["Number"] as? String ?? ""
-            let userGender = value?["Gender"] as? String ?? ""
-            let userFriendList = value?["Friends"] as? String ?? ""
-            let userRequestList = value?["Requests"] as? String ?? ""
-                        
-            self.userInfo = UserInfo()
-            self.userInfo?.defaultUser(id: userID!, name: userName, email: userEmail, number: userNumber, gender: userGender,
-                                       friendList: [userFriendList], requestList: [userRequestList])
-           
-        }) { (error) in
-            self.makeAlert(title: "Ok", message: error.localizedDescription)
+        if let savedPeople = defaults.object(forKey: "user") as? Data {
+            self.userInfo = (NSKeyedUnarchiver.unarchiveObject(with: savedPeople) as! [UserInfo])[0]
+        } else {
+            let userID = FIRAuth.auth()?.currentUser?.uid
+            ref.child("Users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value directory
+                let value = snapshot.value as? NSDictionary
+                
+                //Get Fields
+                let userName = value?["Name"] as? String ?? ""
+                let userEmail = value?["Email"] as? String ?? ""
+                let userNumber = value?["Number"] as? String ?? ""
+                let userGender = value?["Gender"] as? String ?? ""
+                
+                self.userInfo = UserInfo(id: userID!, name: userName, email: userEmail, number: userNumber, gender: userGender)
+                self.saveUser()
+            }) { (error) in
+                self.makeAlert(title: "Ok", message: error.localizedDescription)
+            }
         }
     }
     
@@ -84,6 +85,14 @@ class mainController: UIViewController {
         
         alertController.addAction(action)
         self.present(alertController, animated:true, completion: nil)
+    }
+    
+    //save user for preferences: NSUserData
+    func saveUser() {
+        let userArray = [userInfo]
+        let savedData = NSKeyedArchiver.archivedData(withRootObject: userArray)
+        defaults.set(savedData, forKey: "user")
+        print("***User Saved!***)")
     }
 }
 

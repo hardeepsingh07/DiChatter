@@ -9,74 +9,68 @@
 import Foundation
 
 
-public class UserInfo{
+class UserInfo: NSObject, NSCoding {
     
-    var id: String
-    var name: String
-    var email: String
-    var number: String
-    var gender: String
-    var friendList = [String]();
-    var requestList = [String]();
+    var id: String?
+    var name: String?
+    var email: String?
+    var number: String?
+    var gender: String?
 
     
     //defaut Constructor
-    public init(){
-        self.id = ""
-        self.name = ""
-        self.email = ""
-        self.number = ""
-        self.gender =  ""
-        self.friendList = []
-        self.requestList = []
-    }
-    
-    //for self User
-    func defaultUser(id: String, name: String, email: String, number: String, gender: String, friendList: [String], requestList: [String]) {
+    init(id: String, name: String, email: String, number: String, gender: String){
         self.id = id
         self.name = name
         self.email = email
         self.number = number
         self.gender =  gender
-        self.friendList = friendList
-        self.requestList = requestList
     }
     
-    //for request/friends users
-    func customUser(id: String, name: String, email: String) {
+    //for request/friend users
+    init(id: String, name: String, email: String) {
         self.id = id
         self.name = name
         self.email = email
-        
+        self.number = ""
+        self.gender = ""
     }
     
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.id, forKey: "id")
+        aCoder.encode(self.name, forKey: "name")
+        aCoder.encode(self.email, forKey: "email")
+        aCoder.encode(self.number, forKey: "number");
+        aCoder.encode(self.gender, forKey: "gender");
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.id = aDecoder.decodeObject(forKey: "id") as? String
+        self.name = aDecoder.decodeObject(forKey: "name") as? String
+        self.email = aDecoder.decodeObject(forKey: "email") as? String
+        self.number = aDecoder.decodeObject(forKey: "number") as? String
+        self.gender = aDecoder.decodeObject(forKey: "gender") as? String
+    }
+
     //Getters
     func getId() -> String {
-        return self.id
+        return self.id!
     }
     
     func getName() -> String {
-        return self.name
+        return self.name!
     }
     
     func getEmail() -> String {
-        return self.email
+        return self.email!
     }
     
     func getNumber() -> String {
-        return self.number
+        return self.number!
     }
     
     func getGender() -> String {
-        return self.gender
-    }
-    
-    func getFriendList() -> [String] {
-        return self.friendList
-    }
-    
-    func getRequestList() -> [String] {
-        return self.requestList
+        return self.gender!
     }
     
     //Setters
@@ -98,13 +92,5 @@ public class UserInfo{
     
     func setGender(gender: String){
         self.gender = gender
-    }
-    
-    func setFriendList(friendList: [String]) {
-        self.friendList = friendList
-    }
-    
-    func setRequestList(requestList: [String]) {
-        self.requestList = requestList
     }
 }
