@@ -20,8 +20,6 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
     let defaults = UserDefaults.standard
     
     var userRequests = [UserInfo]()
-    var userFriends = [UserInfo]();
-    
     var currentUser: UserInfo!
     
     //Start Loading Data before View
@@ -34,9 +32,8 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
             currentUser = (NSKeyedUnarchiver.unarchiveObject(with: savedPeople) as! [UserInfo])[0]
         }
         
-        //Get Data for Request and Friends
-        getUserData(type: "Requests")
-        getUserData(type: "Friends")
+        //Get Data for Request
+        getUserData()
     }
     
     //Hide attributes till data is retrieved
@@ -120,15 +117,15 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
         let userInfo = userRequests[sender.tag]
         
         //move to friends list
-        self.ref.child("Users").child(currentUser.getId()).child("Friends").child(userInfo.getId())
+        self.ref.child("Users").child(self.currentUser.getId()).child("Friends").child(userInfo.getId())
             .setValue(["Name": userInfo.getName(), "Email": userInfo.getEmail()])
         
         //add to current user to requestee friend list
-        self.ref.child("Users").child(userInfo.getId()).child("Friends").child(currentUser.getId())
-            .setValue(["Name": currentUser.getName(), "Email": currentUser.getEmail()])
+        self.ref.child("Users").child(userInfo.getId()).child("Friends").child(self.currentUser.getId())
+            .setValue(["Name": self.currentUser.getName(), "Email": self.currentUser.getEmail()])
         
         //remove from request list
-        self.ref.child("Users").child(currentUser.getId()).child("Requests").child(userInfo.getId()).removeValue()
+        self.ref.child("Users").child(self.currentUser.getId()).child("Requests").child(userInfo.getId()).removeValue()
         
         //remove from table
         self.userRequests.remove(at: sender.tag)
@@ -139,14 +136,24 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     @IBAction func decline(_ sender: UIButton) {
-        //remove from table
-        self.userRequests.remove(at: sender.tag)
-        self.tView.reloadData()
+        let userInfo = userRequests[sender.tag]
+        let alertController = UIAlertController(title: "Delete", message: "Request will be deleted permanently. Requestee will be given another chance to request.", preferredStyle: .alert)
+        let delete = UIAlertAction(title: "Delete It", style: .destructive) { (action) in
+            //remove from request list and list
+            self.ref.child("Users").child(self.currentUser.getId()).child("Requests").child(userInfo.getId()).removeValue()
+
+            self.userRequests.remove(at: sender.tag)
+            self.tView.reloadData()
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(delete)
+        alertController.addAction(cancel)
+        self.present(alertController, animated:true, completion: nil)
     }
     
     //get User Requests 
-    func getUserData(type: String) {
-        ref.child("Users").child(currentUser.getId()).child(type).observe(.value, with: { (snapshot) in
+    func getUserData() {
+        ref.child("Users").child(currentUser.getId()).child("Requests").observe(.value, with: { (snapshot) in
             for user in snapshot.children {
                 let fId = (user as! FIRDataSnapshot).key
                 
@@ -155,12 +162,7 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
                 let fEmail = dictionary["Email"] as! String
                 
                 let userInfo = UserInfo(id: fId, name: fName, email: fEmail)
-                
-                if(type == "Requests") {
-                    self.userRequests.append(userInfo)
-                } else {
-                    self.userFriends.append(userInfo)
-                }
+                self.userRequests.append(userInfo)
             }
         }) { (error) in
             self.makeAlert(title: "Error", message: error.localizedDescription)
@@ -171,7 +173,6 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
     func makeAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        
         alertController.addAction(action)
         self.present(alertController, animated:true, completion: nil)
     }
