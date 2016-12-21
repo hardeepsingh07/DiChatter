@@ -15,6 +15,7 @@
 		EB1C460C1DFCEA08004A87A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB1C460B1DFCEA08004A87A0 /* Assets.xcassets */; };
 		EB1C460F1DFCEA08004A87A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB1C460D1DFCEA08004A87A0 /* LaunchScreen.storyboard */; };
 		EB1C46171DFCEA58004A87A0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB1C46161DFCEA58004A87A0 /* GoogleService-Info.plist */; };
+		EB3185581E0A3A6000741223 /* friendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3185571E0A3A6000741223 /* friendTableViewCell.swift */; };
 		EBBE24FC1E03566D00EA5F1A /* mainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBE24FB1E03566D00EA5F1A /* mainController.swift */; };
 		EBBE24FE1E03643E00EA5F1A /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBE24FD1E03643E00EA5F1A /* UserInfo.swift */; };
 		EBC0B7B51DFFB0B500FD7E2D /* vcCreateAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC0B7B41DFFB0B500FD7E2D /* vcCreateAccount.swift */; };
@@ -38,6 +39,7 @@
 		EB1C460E1DFCEA08004A87A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB1C46101DFCEA08004A87A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB1C46161DFCEA58004A87A0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EB3185571E0A3A6000741223 /* friendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = friendTableViewCell.swift; sourceTree = "<group>"; };
 		EBBE24FB1E03566D00EA5F1A /* mainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mainController.swift; sourceTree = "<group>"; };
 		EBBE24FD1E03643E00EA5F1A /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		EBC0B7B41DFFB0B500FD7E2D /* vcCreateAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = vcCreateAccount.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				EB1C46081DFCEA08004A87A0 /* DiChatter.xcdatamodeld */,
 				EB1C46161DFCEA58004A87A0 /* GoogleService-Info.plist */,
 				EBC681291E088D730087F607 /* requestTableViewCell.swift */,
+				EB3185571E0A3A6000741223 /* friendTableViewCell.swift */,
 			);
 			path = DiChatter;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 			files = (
 				EB1C460A1DFCEA08004A87A0 /* DiChatter.xcdatamodeld in Sources */,
 				EBC6812A1E088D730087F607 /* requestTableViewCell.swift in Sources */,
+				EB3185581E0A3A6000741223 /* friendTableViewCell.swift in Sources */,
 				EBFC81031E07683000B32219 /* friendsController.swift in Sources */,
 				EBFC81051E07684800B32219 /* searchController.swift in Sources */,
 				EB1C46041DFCEA08004A87A0 /* vcLogIn.swift in Sources */,

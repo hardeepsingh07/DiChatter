@@ -64,7 +64,7 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
     func animateRequestLabel() {
         requestButtonOutlet.center.x = self.view.frame.width + 150
         requestButtonOutlet.alpha = 1.0
-        UIView.animate(withDuration: 2.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.1, options: [],
+        UIView.animate(withDuration: 2.0, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.1, options: [],
                        animations: ({
                         self.requestButtonOutlet.center.x = self.view.frame.width - 185
                        }), completion: nil)
@@ -99,19 +99,6 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
         cell.rDecline.addTarget(self, action: #selector(requestController.decline(_:)), for: .touchUpInside)
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
-    
-    
     
     @IBAction func accept(_ sender: UIButton) {
         let userInfo = userRequests[sender.tag]
