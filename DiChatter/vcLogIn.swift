@@ -27,7 +27,7 @@ class vcLogin : UIViewController {
         addImageTextView(textView: emailTextView, image: #imageLiteral(resourceName: "usernameWhite"))
         addImageTextView(textView: passwordTextView, image: #imageLiteral(resourceName: "passwordWhite"))
         
-        emailTextView.text = "hardeep07@yahoo.com"
+        emailTextView.text = "user@yahoo.com"
         passwordTextView.text = "123456"
                 
     }

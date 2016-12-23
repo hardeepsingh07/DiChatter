@@ -54,27 +54,27 @@ class mainController: UIViewController {
         performSegue(withIdentifier: "mainToRequest", sender: nil)
     }
     
+    @IBAction func logout(_ sender: Any) {
+        try! FIRAuth.auth()!.signOut()
+        performSegue(withIdentifier: "logoutToLogIn", sender: nil)
+    }
     
     func getUserData() {
-        if let savedPeople = defaults.object(forKey: "user") as? Data {
-            self.userInfo = (NSKeyedUnarchiver.unarchiveObject(with: savedPeople) as! [UserInfo])[0]
-        } else {
-            let userID = FIRAuth.auth()?.currentUser?.uid
-            ref.child("Users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-                // Get user value directory
-                let value = snapshot.value as? NSDictionary
-                
-                //Get Fields
-                let userName = value?["Name"] as? String ?? ""
-                let userEmail = value?["Email"] as? String ?? ""
-                let userNumber = value?["Number"] as? String ?? ""
-                let userGender = value?["Gender"] as? String ?? ""
-                
-                self.userInfo = UserInfo(id: userID!, name: userName, email: userEmail, number: userNumber, gender: userGender)
-                self.saveUser()
-            }) { (error) in
-                self.makeAlert(title: "Ok", message: error.localizedDescription)
-            }
+        let userID = FIRAuth.auth()?.currentUser?.uid
+        ref.child("Users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value directory
+            let value = snapshot.value as? NSDictionary
+            
+            //Get Fields
+            let userName = value?["Name"] as? String ?? ""
+            let userEmail = value?["Email"] as? String ?? ""
+            let userNumber = value?["Number"] as? String ?? ""
+            let userGender = value?["Gender"] as? String ?? ""
+            
+            self.userInfo = UserInfo(id: userID!, name: userName, email: userEmail, number: userNumber, gender: userGender)
+            self.saveUser()
+        }) { (error) in
+            self.makeAlert(title: "Ok", message: error.localizedDescription)
         }
     }
     

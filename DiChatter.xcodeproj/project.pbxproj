@@ -20,6 +20,7 @@
 		EBBE24FE1E03643E00EA5F1A /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBE24FD1E03643E00EA5F1A /* UserInfo.swift */; };
 		EBC0B7B51DFFB0B500FD7E2D /* vcCreateAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC0B7B41DFFB0B500FD7E2D /* vcCreateAccount.swift */; };
 		EBC6812A1E088D730087F607 /* requestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC681291E088D730087F607 /* requestTableViewCell.swift */; };
+		EBE8697D1E0C9FC000325553 /* searchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE8697C1E0C9FC000325553 /* searchTableViewCell.swift */; };
 		EBFC81011E07681B00B32219 /* requestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFC81001E07681B00B32219 /* requestController.swift */; };
 		EBFC81031E07683000B32219 /* friendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFC81021E07683000B32219 /* friendsController.swift */; };
 		EBFC81051E07684800B32219 /* searchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFC81041E07684800B32219 /* searchController.swift */; };
@@ -44,6 +45,7 @@
 		EBBE24FD1E03643E00EA5F1A /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		EBC0B7B41DFFB0B500FD7E2D /* vcCreateAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = vcCreateAccount.swift; sourceTree = "<group>"; };
 		EBC681291E088D730087F607 /* requestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = requestTableViewCell.swift; sourceTree = "<group>"; };
+		EBE8697C1E0C9FC000325553 /* searchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchTableViewCell.swift; sourceTree = "<group>"; };
 		EBFC81001E07681B00B32219 /* requestController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = requestController.swift; sourceTree = "<group>"; };
 		EBFC81021E07683000B32219 /* friendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = friendsController.swift; sourceTree = "<group>"; };
 		EBFC81041E07684800B32219 /* searchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchController.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				EB1C46161DFCEA58004A87A0 /* GoogleService-Info.plist */,
 				EBC681291E088D730087F607 /* requestTableViewCell.swift */,
 				EB3185571E0A3A6000741223 /* friendTableViewCell.swift */,
+				EBE8697C1E0C9FC000325553 /* searchTableViewCell.swift */,
 			);
 			path = DiChatter;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				EBBE24FC1E03566D00EA5F1A /* mainController.swift in Sources */,
 				EBBE24FE1E03643E00EA5F1A /* UserInfo.swift in Sources */,
 				EB1C46021DFCEA08004A87A0 /* AppDelegate.swift in Sources */,
+				EBE8697D1E0C9FC000325553 /* searchTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

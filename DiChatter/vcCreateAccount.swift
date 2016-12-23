@@ -81,7 +81,8 @@ class vcCreateAccount: UIViewController {
     
     @IBAction func createAccount(_ sender: Any) {
         if nameTextView.text == "" || emailTextView.text == "" || passwordTextView.text == "" {
-            makeAlert(title: "Incomplete Date", message: "Please complete all the fields approriately.")
+//            makeAlert(title: "Incomplete Date", message: "Please complete all the fields approriately.")
+            makeDummyUsers()
         } else {
             FIRAuth.auth()?.createUser(withEmail: emailTextView.text!, password: passwordTextView.text!, completion: { (user, error) in
                 if error == nil {
@@ -90,14 +91,9 @@ class vcCreateAccount: UIViewController {
                     let userEmail: String = self.emailTextView.text!
                     let userNumber: String = self.numberTextView.text!
                     let userGender: String = self.gender
-                    var userFriendList = [String]()
-                    userFriendList.append("TestFriend")
-                    var userRequestList = [String]()
-                    userRequestList.append("TestRequest")
                     
                     //upload data to databse
-                    self.ref.child("Users").child(userId).setValue(["Name": userName, "Email": userEmail, "Number": userNumber,
-                                                                    "Gender": userGender, "Friends": userFriendList, "Requests": userRequestList])
+                    self.ref.child("Users").child(userId).setValue(["Name": userName, "Email": userEmail, "Number": userNumber, "Gender": userGender])
                     
                     //transition to next screen and send data
                     self.performSegue(withIdentifier: "segueCAtoMain", sender: nil)
@@ -106,6 +102,26 @@ class vcCreateAccount: UIViewController {
                 }
             })
         }
+    }
+    
+    func makeDummyUsers() {
+        for i in 0...10 {
+            FIRAuth.auth()?.createUser(withEmail: "User" + String(i) + "@yahoo.com", password: "123456", completion: { (user, error) in
+                if error == nil {
+                    let userId: String = (user?.uid)!
+                    let userName: String = "User" + String(i)
+                    let userEmail: String = "User" + String(i) + "@yahoo.com"
+                    let userNumber: String = String(123456789)
+                    let userGender: String = self.gender
+                    
+                    //upload data to databse
+                    self.ref.child("Users").child(userId).setValue(["Name": userName, "Email": userEmail, "Number": userNumber, "Gender": userGender])
+                } else {
+                    self.makeAlert(title: "Error", message: (error?.localizedDescription)!)
+                }
+            })
+        }
+        makeAlert(title: "Success", message: "User Created!")
     }
     
     
@@ -117,9 +133,9 @@ class vcCreateAccount: UIViewController {
         alertController.addAction(action)
         self.present(alertController, animated:true, completion: nil)
     }
-
- 
 }
+
+
 
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if(segue.identifier == "segueCAtoMain") {
