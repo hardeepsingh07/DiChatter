@@ -42,6 +42,7 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
         //Make Firebase call for all user
         getAllUserData()
         getCurrentFriends()
+        getUserRequestedList()
     }
     
     override func viewDidLoad() {
@@ -94,7 +95,13 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
             } 
         }
         
-        //Set button image for already requested        
+        //Set button image for already requested    
+        for s in requested {
+            if(userItem.getId() == s) {
+                cell.sAdd.setImage(#imageLiteral(resourceName: "timeGrey"), for: .normal)
+                cell.sAdd.isEnabled = false
+            }
+        }
 
         return cell
     }
@@ -171,16 +178,16 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
     
-//    //get User requested list
-//    func getUserRequested() {
-//        ref.child("Users").child(currentUser.getId()).child("Requested").observe(.value, with: { (snapshot) in
-//            for user in snapshot.children {
-//                self.requested.append((user as AnyObject).value)
-//            }
-//        }) { (error) in
-//            self.makeAlert(title: "Error", message: error.localizedDescription)
-//        }
-//    }
+    //get User requested list
+    func getUserRequestedList() {
+        ref.child("Users").child(currentUser.getId()).child("Requested").observe(.value, with: { (snapshot) in
+            for user in snapshot.children {
+                self.requested.append((user as! FIRDataSnapshot).value! as! String)
+            }
+        }) { (error) in
+            self.makeAlert(title: "Error", message: error.localizedDescription)
+        }
+    }
 
     //make alerts
     func makeAlert(title: String, message: String) {

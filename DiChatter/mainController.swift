@@ -78,7 +78,6 @@ class mainController: UIViewController {
         }
     }
     
-    
     func makeAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
