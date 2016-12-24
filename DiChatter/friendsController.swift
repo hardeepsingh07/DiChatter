@@ -105,7 +105,7 @@ class friendsController: UIViewController, UITableViewDelegate, UITableViewDataS
             self.ref.child("Users").child(self.currentUser.getId()).child("Friends").child(userInfo.getId()).removeValue()
             
             //remove current user from other user friend list 
-            self.ref.child("Users").child(userInfo.getId()).child("Friends").child(currentUser.getId()).removeValue()
+            self.ref.child("Users").child(userInfo.getId()).child("Friends").child(self.currentUser.getId()).removeValue()
             
             self.userFriends.remove(at: sender.tag)
             self.tView.reloadData()
