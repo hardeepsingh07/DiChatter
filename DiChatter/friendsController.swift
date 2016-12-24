@@ -101,8 +101,11 @@ class friendsController: UIViewController, UITableViewDelegate, UITableViewDataS
         let userInfo = userFriends[sender.tag]
         let alertController = UIAlertController(title: "Delete", message: "User will be removed from friend list permanently", preferredStyle: .alert)
         let delete = UIAlertAction(title: "Delete It", style: .destructive) { (action) in
-            //remove from request list and list
+            //remove from current user friend list
             self.ref.child("Users").child(self.currentUser.getId()).child("Friends").child(userInfo.getId()).removeValue()
+            
+            //remove current user from other user friend list 
+            self.ref.child("Users").child(userInfo.getId()).child("Friends").child(currentUser.getId()).removeValue()
             
             self.userFriends.remove(at: sender.tag)
             self.tView.reloadData()
