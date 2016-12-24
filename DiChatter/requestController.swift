@@ -114,6 +114,9 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
         //remove from request list
         self.ref.child("Users").child(self.currentUser.getId()).child("Requests").child(userInfo.getId()).removeValue()
         
+        //remove current user from requestee requsted list 
+        self.ref.child("Users").child(userInfo.getId()).child("Requested").child(currentUser.getId()).removeValue()
+        
         //remove from table
         self.userRequests.remove(at: sender.tag)
         self.tView.reloadData()
@@ -129,6 +132,9 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
             //remove from request list and list
             self.ref.child("Users").child(self.currentUser.getId()).child("Requests").child(userInfo.getId()).removeValue()
 
+            //remove current user from requestee requsted list
+            self.ref.child("Users").child(userInfo.getId()).child("Requested").child(self.currentUser.getId()).removeValue()
+            
             self.userRequests.remove(at: sender.tag)
             self.tView.reloadData()
         }

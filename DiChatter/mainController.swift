@@ -24,7 +24,7 @@ class mainController: UIViewController {
         ref = FIRDatabase.database().reference()
         getUserData()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

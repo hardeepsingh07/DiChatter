@@ -81,8 +81,8 @@ class vcCreateAccount: UIViewController {
     
     @IBAction func createAccount(_ sender: Any) {
         if nameTextView.text == "" || emailTextView.text == "" || passwordTextView.text == "" {
-//            makeAlert(title: "Incomplete Date", message: "Please complete all the fields approriately.")
-            makeDummyUsers()
+            makeAlert(title: "Incomplete Date", message: "Please complete all the fields approriately.")
+            //makeDummyUsers()
         } else {
             FIRAuth.auth()?.createUser(withEmail: emailTextView.text!, password: passwordTextView.text!, completion: { (user, error) in
                 if error == nil {

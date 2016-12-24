@@ -122,7 +122,7 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
         
         //add to requested people list
         self.ref.child("Users").child(self.currentUser.getId()).child("Requested")
-            .setValue([userItem.getId()])
+            .setValue([userItem.getId(): "null"])
         
         //request the selected user 
         self.ref.child("Users").child(userItem.getId()).child("Requests").child(currentUser.getId())
@@ -182,7 +182,7 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
     func getUserRequestedList() {
         ref.child("Users").child(currentUser.getId()).child("Requested").observe(.value, with: { (snapshot) in
             for user in snapshot.children {
-                self.requested.append((user as! FIRDataSnapshot).value! as! String)
+                self.requested.append((user as! FIRDataSnapshot).key)
             }
         }) { (error) in
             self.makeAlert(title: "Error", message: error.localizedDescription)
