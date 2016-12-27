@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		23855F1FA89466D35247C37F /* Pods_DiChatter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DB57E6AEA2FB4006EC9E8CA /* Pods_DiChatter.framework */; };
+		EB0001801E1222BF003C40C5 /* chatDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00017F1E1222BF003C40C5 /* chatDetailController.swift */; };
 		EB1C46021DFCEA08004A87A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C46011DFCEA08004A87A0 /* AppDelegate.swift */; };
 		EB1C46041DFCEA08004A87A0 /* vcLogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C46031DFCEA08004A87A0 /* vcLogIn.swift */; };
 		EB1C46071DFCEA08004A87A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB1C46051DFCEA08004A87A0 /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		2DB57E6AEA2FB4006EC9E8CA /* Pods_DiChatter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DiChatter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81C8EB5DDAE67D1C1DC7D347 /* Pods-DiChatter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DiChatter.release.xcconfig"; path = "Pods/Target Support Files/Pods-DiChatter/Pods-DiChatter.release.xcconfig"; sourceTree = "<group>"; };
+		EB00017F1E1222BF003C40C5 /* chatDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chatDetailController.swift; sourceTree = "<group>"; };
 		EB1C45FE1DFCEA08004A87A0 /* DiChatter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiChatter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB1C46011DFCEA08004A87A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB1C46031DFCEA08004A87A0 /* vcLogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vcLogIn.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				EBFC81041E07684800B32219 /* searchController.swift */,
 				EBFC81061E07685A00B32219 /* settingsController.swift */,
 				EBFC81081E07687800B32219 /* chatController.swift */,
+				EB00017F1E1222BF003C40C5 /* chatDetailController.swift */,
 				EB1C46011DFCEA08004A87A0 /* AppDelegate.swift */,
 				EB1C46051DFCEA08004A87A0 /* Main.storyboard */,
 				EB1C460B1DFCEA08004A87A0 /* Assets.xcassets */,
@@ -260,6 +263,7 @@
 				EBFC81071E07685A00B32219 /* settingsController.swift in Sources */,
 				EBFC81091E07687800B32219 /* chatController.swift in Sources */,
 				EBFC81011E07681B00B32219 /* requestController.swift in Sources */,
+				EB0001801E1222BF003C40C5 /* chatDetailController.swift in Sources */,
 				EBC0B7B51DFFB0B500FD7E2D /* vcCreateAccount.swift in Sources */,
 				EBBE24FC1E03566D00EA5F1A /* mainController.swift in Sources */,
 				EBBE24FE1E03643E00EA5F1A /* UserInfo.swift in Sources */,
