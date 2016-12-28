@@ -29,7 +29,7 @@ class vcLogin : UIViewController {
         
         emailTextView.text = "user@yahoo.com"
         passwordTextView.text = "123456"
-                
+        
     }
     
     func addImageTextView(textView: UITextField, image: UIImage) {

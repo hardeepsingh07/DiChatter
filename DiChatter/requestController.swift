@@ -56,7 +56,7 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
         //Animate TableView
         self.animateTable()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -82,7 +82,7 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userRequests.count
     }
@@ -114,7 +114,7 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
         //remove from request list
         self.ref.child("Users").child(self.currentUser.getId()).child("Requests").child(userInfo.getId()).removeValue()
         
-        //remove current user from requestee requsted list 
+        //remove current user from requestee requsted list
         self.ref.child("Users").child(userInfo.getId()).child("Requested").child(currentUser.getId()).removeValue()
         
         //remove from table
@@ -131,7 +131,7 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
         let delete = UIAlertAction(title: "Delete It", style: .destructive) { (action) in
             //remove from request list and list
             self.ref.child("Users").child(self.currentUser.getId()).child("Requests").child(userInfo.getId()).removeValue()
-
+            
             //remove current user from requestee requsted list
             self.ref.child("Users").child(userInfo.getId()).child("Requested").child(self.currentUser.getId()).removeValue()
             
@@ -144,7 +144,7 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
         self.present(alertController, animated:true, completion: nil)
     }
     
-    //get User Requests 
+    //get User Requests
     func getUserData() {
         ref.child("Users").child(currentUser.getId()).child("Requests").observe(.value, with: { (snapshot) in
             for user in snapshot.children {

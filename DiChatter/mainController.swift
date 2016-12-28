@@ -16,7 +16,7 @@ class mainController: UIViewController {
     var userInfo: UserInfo?
     var ref: FIRDatabaseReference!
     let defaults = UserDefaults.standard
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

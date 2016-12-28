@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class vcCreateAccount: UIViewController {
-
+    
     var ref: FIRDatabaseReference!
     @IBOutlet weak var nameTextView: UITextField!
     @IBOutlet weak var emailTextView: UITextField!
@@ -19,7 +19,7 @@ class vcCreateAccount: UIViewController {
     @IBOutlet weak var numberTextView: UITextField!
     
     var gender = "male"
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,7 +38,7 @@ class vcCreateAccount: UIViewController {
         //Intitalize the database
         ref = FIRDatabase.database().reference();
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -62,20 +62,20 @@ class vcCreateAccount: UIViewController {
         incomingField.layer.addSublayer(border)
         incomingField.layer.masksToBounds = true
     }
-
+    
     
     //Actions: Buttons and Segement
     @IBAction func genderSelection(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex
         {
-            case 0:
-                gender = "male"
-                break
-            case 1:
-                gender = "female"
-                break;
-            default:
-                break;
+        case 0:
+            gender = "male"
+            break
+        case 1:
+            gender = "female"
+            break;
+        default:
+            break;
         }
     }
     

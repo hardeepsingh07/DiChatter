@@ -9,7 +9,7 @@
 import UIKit
 
 class requestTableViewCell: UITableViewCell {
-
+    
     
     @IBOutlet weak var rName: UILabel!
     @IBOutlet weak var rEmail: UILabel!
@@ -19,9 +19,9 @@ class requestTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
+    
 }

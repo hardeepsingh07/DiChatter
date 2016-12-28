@@ -12,7 +12,7 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class searchController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
-
+    
     @IBOutlet weak var tView: UITableView!
     @IBOutlet weak var searchLabel: UIButton!
     
@@ -63,7 +63,7 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
         self.filteredUsers = self.firebaseUsers
         tView.reloadData()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -92,17 +92,17 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
             if(userItem.getId() == s) {
                 cell.sAdd.setImage(#imageLiteral(resourceName: "friendGrey"), for: .normal)
                 cell.sAdd.isEnabled = false
-            } 
+            }
         }
         
-        //Set button image for already requested    
+        //Set button image for already requested
         for s in requested {
             if(userItem.getId() == s) {
                 cell.sAdd.setImage(#imageLiteral(resourceName: "timeGrey"), for: .normal)
                 cell.sAdd.isEnabled = false
             }
         }
-
+        
         return cell
     }
     
@@ -124,7 +124,7 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
         self.ref.child("Users").child(self.currentUser.getId()).child("Requested")
             .setValue([userItem.getId(): "null"])
         
-        //request the selected user 
+        //request the selected user
         self.ref.child("Users").child(userItem.getId()).child("Requests").child(currentUser.getId())
             .setValue(["Name": self.currentUser.getName(), "Email": self.currentUser.getEmail()])
         
@@ -188,7 +188,7 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
             self.makeAlert(title: "Error", message: error.localizedDescription)
         }
     }
-
+    
     //make alerts
     func makeAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)

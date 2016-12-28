@@ -16,7 +16,7 @@ class UserInfo: NSObject, NSCoding {
     var email: String?
     var number: String?
     var gender: String?
-
+    
     
     //defaut Constructor
     init(id: String, name: String, email: String, number: String, gender: String){
@@ -51,7 +51,7 @@ class UserInfo: NSObject, NSCoding {
         self.number = aDecoder.decodeObject(forKey: "number") as? String
         self.gender = aDecoder.decodeObject(forKey: "gender") as? String
     }
-
+    
     //Getters
     func getId() -> String {
         return self.id!

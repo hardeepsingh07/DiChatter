@@ -12,7 +12,7 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class friendsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     var ref: FIRDatabaseReference!
     @IBOutlet weak var tView: UITableView!
     @IBOutlet weak var labelButton: UIButton!
@@ -43,7 +43,7 @@ class friendsController: UIViewController, UITableViewDelegate, UITableViewDataS
         labelButton.alpha = 0.0
         tView.alpha = 0.0
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //Animate ScreenLabel
@@ -55,7 +55,7 @@ class friendsController: UIViewController, UITableViewDelegate, UITableViewDataS
         //Animate TableView
         self.animateTable()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -104,7 +104,7 @@ class friendsController: UIViewController, UITableViewDelegate, UITableViewDataS
             //remove from current user friend list
             self.ref.child("Users").child(self.currentUser.getId()).child("Friends").child(userInfo.getId()).removeValue()
             
-            //remove current user from other user friend list 
+            //remove current user from other user friend list
             self.ref.child("Users").child(userInfo.getId()).child("Friends").child(self.currentUser.getId()).removeValue()
             
             self.userFriends.remove(at: sender.tag)
