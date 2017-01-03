@@ -819,7 +819,7 @@
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="tView" destination="VX2-zE-ri3" id="xl6-0h-SKt"/>
+                        <outlet property="tView" destination="VX2-zE-ri3" id="RTb-hO-vPB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zht-kF-YkR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -830,6 +830,10 @@
         <scene sceneID="Z73-Sz-esU">
             <objects>
                 <viewController id="lSf-mP-7Va" customClass="chatDetailController" customModule="DiChatter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EZk-5N-wXa"/>
+                        <viewControllerLayoutGuide type="bottom" id="SgW-9R-ef5"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="LqR-xV-gua">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -845,6 +849,9 @@
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="sendButtonAction:" destination="lSf-mP-7Va" eventType="touchUpInside" id="vTL-Xu-aHC"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" Enter Message Here..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Elm-cQ-Fg1">
                                 <rect key="frame" x="5" y="5" width="290" height="40"/>
@@ -861,10 +868,14 @@
                             </textField>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="messageTextView" destination="Elm-cQ-Fg1" id="bre-yW-nFD"/>
+                        <outlet property="sendButton" destination="HDx-rs-Ego" id="wbg-nK-b4X"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MRd-iy-WLX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4621.6000000000004" y="973.31334332833592"/>
+            <point key="canvasLocation" x="4753" y="1003"/>
         </scene>
     </scenes>
     <resources>

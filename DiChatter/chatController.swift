@@ -8,16 +8,49 @@
 
 import UIKit
 
-class chatController: UIViewController {
-
+class chatController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var tView: UITableView!
+    @IBOutlet weak var screenLabel: UIButton!
+    
+    var user = [String]()
+    var passThis: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        user.append("Hello")
+        user.append("Bye")
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return user.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell  = tableView.dequeueReusableCell(withIdentifier: "cCell", for: indexPath)
+        
+        cell.textLabel?.text = user[indexPath.row]
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.passThis = user[indexPath.row]
+        performSegue(withIdentifier: "chatDetail", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "chatDetail") {
+            let svc = segue.destination as! chatDetailController
+            svc.name = self.passThis
+        }
     }
 }
