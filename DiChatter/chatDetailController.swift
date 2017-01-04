@@ -27,12 +27,10 @@ class chatDetailController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(s) {
-            s = false
-            
-            //observe messages on server for update
-            observeMessages()
-        }
+        //observe messages on server for update
+        observeMessages()
+        
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(printArray), userInfo: nil, repeats: false)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -84,7 +82,7 @@ class chatDetailController: UIViewController, UITableViewDataSource, UITableView
         //query the UserMessage to find any new messages references
         self.ref.child("UserMessages").child(currentID).observe(.childAdded, with: { (snapshot) in
             let mID = snapshot.key
-            print(mID)
+            //print(mID)
             self.observeMessageID(mID: mID)
         }, withCancel: nil)
     }
@@ -98,16 +96,14 @@ class chatDetailController: UIViewController, UITableViewDataSource, UITableView
                 let mFromID = dictionary["fromID"] as? String ?? ""
                 let mTimeStamp = dictionary["timeStamp"] as? Int ?? 0
                 let mMessage = dictionary["messageValue"] as? String ?? ""
-                print(mToID + ": " + mFromID + ": " + String(mTimeStamp) + ": " + mMessage)
+               // print(mToID + ": " + mFromID + ": " + String(mTimeStamp) + ": " + mMessage)
                 
                 //add to array
                 let cM = MessageInfo(toID: mToID, fromID: mFromID, timeStamp: mTimeStamp, messageValue: mMessage)
                 self.messagesArray.append(cM)
             }
         }, withCancel: nil)
-        if(!messagesArray.isEmpty) {
-            print("From Array: " + messagesArray[0].getMessageValue())
-        }
+        
     }
     
     
