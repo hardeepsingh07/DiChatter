@@ -738,10 +738,10 @@
             </objects>
             <point key="canvasLocation" x="3896.8000000000002" y="567.16641679160421"/>
         </scene>
-        <!--Chat Detail Controller-->
+        <!--Detail Chat Controller-->
         <scene sceneID="vox-h2-Q0c">
             <objects>
-                <viewController storyboardIdentifier="chatDetail" id="7iG-qv-8Zk" customClass="chatDetailController" customModule="DiChatter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chatDetail" id="7iG-qv-8Zk" customClass="detailChatController" customModule="DiChatter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eiU-NB-s1g"/>
                         <viewControllerLayoutGuide type="bottom" id="LW5-Lu-dcv"/>
@@ -787,13 +787,6 @@
                                     <outlet property="delegate" destination="7iG-qv-8Zk" id="vl6-0N-LIF"/>
                                 </connections>
                             </tableView>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N98-yK-lPJ">
-                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="lSf-mP-7Va" kind="embed" id="deY-YG-bOd"/>
-                                </connections>
-                            </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name Of User" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iF5-Pu-PBG">
                                 <rect key="frame" x="87" y="39" width="200" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -807,42 +800,14 @@
                                 <state key="normal" image="chatWhite">
                                     <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <connections>
-                                    <segue destination="k9x-rh-Hab" kind="show" id="0GA-9G-nhg"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UUq-6A-4Lz">
                                 <rect key="frame" x="324" y="29" width="35" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Clear" image="declineWhite"/>
-                                <connections>
-                                    <segue destination="k9x-rh-Hab" kind="show" id="bsu-r2-RF9"/>
-                                </connections>
                             </button>
-                        </subviews>
-                    </view>
-                    <connections>
-                        <outlet property="tView" destination="VX2-zE-ri3" id="RTb-hO-vPB"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zht-kF-YkR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4752.8000000000002" y="583.3583208395803"/>
-        </scene>
-        <!--Chat Detail Controller-->
-        <scene sceneID="Z73-Sz-esU">
-            <objects>
-                <viewController id="lSf-mP-7Va" customClass="chatDetailController" customModule="DiChatter" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="EZk-5N-wXa"/>
-                        <viewControllerLayoutGuide type="bottom" id="SgW-9R-ef5"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="LqR-xV-gua">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDx-rs-Ego">
-                                <rect key="frame" x="296" y="5" width="74" height="40"/>
+                                <rect key="frame" x="294" y="622" width="74" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Cochin" family="Cochin" pointSize="18"/>
@@ -853,13 +818,14 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="sendButtonAction:" destination="lSf-mP-7Va" eventType="touchUpInside" id="vTL-Xu-aHC"/>
+                                    <action selector="sendAction:" destination="7iG-qv-8Zk" eventType="touchUpInside" id="X6P-sw-nl5"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" Enter Message Here..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Elm-cQ-Fg1">
-                                <rect key="frame" x="5" y="5" width="290" height="40"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" Enter Message Here..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Elm-cQ-Fg1" userLabel="Enter Message Here...">
+                                <rect key="frame" x="7" y="622" width="281" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Cochin" family="Cochin" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes"/>
@@ -872,13 +838,13 @@
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="messageTextView" destination="Elm-cQ-Fg1" id="bre-yW-nFD"/>
-                        <outlet property="sendButton" destination="HDx-rs-Ego" id="wbg-nK-b4X"/>
+                        <outlet property="messageTextView" destination="Elm-cQ-Fg1" id="Jyn-w8-gZD"/>
+                        <outlet property="tView" destination="VX2-zE-ri3" id="5Td-E1-lvw"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MRd-iy-WLX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zht-kF-YkR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4753" y="1003"/>
+            <point key="canvasLocation" x="4752.8000000000002" y="583.3583208395803"/>
         </scene>
     </scenes>
     <resources>
@@ -898,6 +864,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="Y4K-kD-7QR"/>
         <segue reference="KE2-0y-f3k"/>
-        <segue reference="0GA-9G-nhg"/>
     </inferredMetricsTieBreakers>
 </document>

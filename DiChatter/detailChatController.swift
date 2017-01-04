@@ -1,9 +1,9 @@
 //
-//  chatDetailControllerViewController.swift
+//  detailChatController.swift
 //  DiChatter
 //
-//  Created by Hardeep Singh on 12/26/16.
-//  Copyright © 2016 Hardeep Singh. All rights reserved.
+//  Created by Hardeep Singh on 1/3/17.
+//  Copyright © 2017 Hardeep Singh. All rights reserved.
 //
 
 import UIKit
@@ -11,16 +11,13 @@ import FirebaseAuth
 import FirebaseDatabase
 import Firebase
 
-class chatDetailController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+class detailChatController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+    @IBOutlet weak var tView: UITableView!
+    @IBOutlet weak var messageTextView: UITextField!
     var name: String?
     
-    @IBOutlet weak var tView: UITableView!
-    @IBOutlet weak var sendButton: UIButton!
-    @IBOutlet weak var messageTextView: UITextField!
-    
     var ref: FIRDatabaseReference!
-    
     var messagesArray = [MessageInfo]()
     
     override func viewDidLoad() {
@@ -28,17 +25,8 @@ class chatDetailController: UIViewController, UITableViewDataSource, UITableView
         
         //observe messages on server for update
         observeMessages()
-        
-        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(printArray), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(reloadTable), userInfo: nil, repeats: false)
     }
-    
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        //observe messages on server for update
-//        observeMessages()
-//        
-//        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(printArray), userInfo: nil, repeats: false)
-//    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -54,11 +42,9 @@ class chatDetailController: UIViewController, UITableViewDataSource, UITableView
         let m = messagesArray[indexPath.row]
         cell.textLabel?.text = m.getMessageValue()
         
-        print(m.getMessageValue())
         return cell
     }
-    
-    @IBAction func sendButtonAction(_ sender: Any) {
+    @IBAction func sendAction(_ sender: Any) {
         let sRef = ref.child("Messages")
         let cRef = sRef.childByAutoId()
         
@@ -80,9 +66,9 @@ class chatDetailController: UIViewController, UITableViewDataSource, UITableView
         
         //Give Index to Recepient User
         ref.child("UserMessages").child(toID).updateChildValues([cRef.key: 1])
+
     }
-    
-    
+
     func observeMessages() {
         ref = FIRDatabase.database().reference()
         let currentID = "TestFromID"
@@ -103,22 +89,19 @@ class chatDetailController: UIViewController, UITableViewDataSource, UITableView
                 let mFromID = dictionary["fromID"] as? String ?? ""
                 let mTimeStamp = dictionary["timeStamp"] as? Int ?? 0
                 let mMessage = dictionary["messageValue"] as? String ?? ""
-               // print(mToID + ": " + mFromID + ": " + String(mTimeStamp) + ": " + mMessage)
+                // print(mToID + ": " + mFromID + ": " + String(mTimeStamp) + ": " + mMessage)
                 
                 //add to array
                 let cM = MessageInfo(toID: mToID, fromID: mFromID, timeStamp: mTimeStamp, messageValue: mMessage)
                 self.messagesArray.append(cM)
             }
         }, withCancel: nil)
-        
+        tView.reloadData()
     }
     
     
-    func printArray() {
-        print("Array")
-        for m in messagesArray {
-            print(m.getMessageValue())
-        }
-        print(messagesArray.count)
+    func reloadTable() {
+        tView.reloadData()
     }
+
 }
