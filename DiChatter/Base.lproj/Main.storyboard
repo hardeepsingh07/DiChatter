@@ -741,7 +741,7 @@
         <!--Chat Detail Controller-->
         <scene sceneID="vox-h2-Q0c">
             <objects>
-                <viewController id="7iG-qv-8Zk" customClass="chatDetailController" customModule="DiChatter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chatDetail" id="7iG-qv-8Zk" customClass="chatDetailController" customModule="DiChatter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eiU-NB-s1g"/>
                         <viewControllerLayoutGuide type="bottom" id="LW5-Lu-dcv"/>
@@ -815,6 +815,9 @@
                                 <rect key="frame" x="324" y="29" width="35" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Clear" image="declineWhite"/>
+                                <connections>
+                                    <segue destination="k9x-rh-Hab" kind="show" id="bsu-r2-RF9"/>
+                                </connections>
                             </button>
                         </subviews>
                     </view>

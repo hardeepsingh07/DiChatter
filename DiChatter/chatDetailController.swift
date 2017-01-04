@@ -22,7 +22,6 @@ class chatDetailController: UIViewController, UITableViewDataSource, UITableView
     var ref: FIRDatabaseReference!
     
     var messagesArray = [MessageInfo]()
-    var s = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +31,14 @@ class chatDetailController: UIViewController, UITableViewDataSource, UITableView
         
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(printArray), userInfo: nil, repeats: false)
     }
+    
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+//        //observe messages on server for update
+//        observeMessages()
+//        
+//        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(printArray), userInfo: nil, repeats: false)
+//    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

@@ -21,6 +21,7 @@ class chatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         user.append("Hello")
         user.append("Bye")
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -45,6 +46,8 @@ class chatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.passThis = user[indexPath.row]
         performSegue(withIdentifier: "chatDetail", sender: nil)
+//        let controller = storyboard?.instantiateViewController(withIdentifier: "chatDetail") as! chatDetailController
+//        present(controller, animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
