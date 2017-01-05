@@ -19,13 +19,15 @@ class detailChatController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var ref: FIRDatabaseReference!
     var messagesArray = [MessageInfo]()
+    let group = DispatchGroup()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //Load all messages
+        observeMessages()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //observe messages on server for update
-        observeMessages()
-        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(reloadTable), userInfo: nil, repeats: false)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -73,35 +75,25 @@ class detailChatController: UIViewController, UITableViewDelegate, UITableViewDa
         ref = FIRDatabase.database().reference()
         let currentID = "TestFromID"
         //query the UserMessage to find any new messages references
+        //self.group.enter()
         self.ref.child("UserMessages").child(currentID).observe(.childAdded, with: { (snapshot) in
             let mID = snapshot.key
-            //print(mID)
-            self.observeMessageID(mID: mID)
+            //Query Messages to find the approriate message via reference Id (mID)
+            self.ref.child("Messages").child(mID).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    let mToID = dictionary["toID"] as? String ?? ""
+                    let mFromID = dictionary["fromID"] as? String ?? ""
+                    let mTimeStamp = dictionary["timeStamp"] as? Int ?? 0
+                    let mMessage = dictionary["messageValue"] as? String ?? ""
+                    print(mToID + ": " + mFromID + ": " + String(mTimeStamp) + ": " + mMessage)
+                    
+                    //add to array
+                    let cM = MessageInfo(toID: mToID, fromID: mFromID, timeStamp: mTimeStamp, messageValue: mMessage)
+                    self.messagesArray.append(cM)
+                    self.tView.reloadData()
+                }
+            }, withCancel: nil)
         }, withCancel: nil)
+        
     }
-    
-    func observeMessageID(mID: String) {
-        //Query Messages to find the approriate message via reference Id (mID)
-        self.ref.child("Messages").child(mID).observeSingleEvent(of: .value, with: { (snapshot) in
-            //                let dictionary = snapshot.value as! NSDictionary
-            if let dictionary = snapshot.value as? [String: AnyObject] {
-                let mToID = dictionary["toID"] as? String ?? ""
-                let mFromID = dictionary["fromID"] as? String ?? ""
-                let mTimeStamp = dictionary["timeStamp"] as? Int ?? 0
-                let mMessage = dictionary["messageValue"] as? String ?? ""
-                // print(mToID + ": " + mFromID + ": " + String(mTimeStamp) + ": " + mMessage)
-                
-                //add to array
-                let cM = MessageInfo(toID: mToID, fromID: mFromID, timeStamp: mTimeStamp, messageValue: mMessage)
-                self.messagesArray.append(cM)
-            }
-        }, withCancel: nil)
-        tView.reloadData()
-    }
-    
-    
-    func reloadTable() {
-        tView.reloadData()
-    }
-
 }
