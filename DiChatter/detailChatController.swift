@@ -15,13 +15,14 @@ class detailChatController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var tView: UITableView!
     @IBOutlet weak var messageTextView: UITextField!
-    var name: String?
-    
+
+    var chatPartner: UserInfo!
     var ref: FIRDatabaseReference!
     var messagesArray = [MessageInfo]()
-    let group = DispatchGroup()
     
     override func viewWillAppear(_ animated: Bool) {
+        print(chatPartner.getId(), chatPartner.getName(), chatPartner.getEmail())
+        
         //Load all messages
         observeMessages()
     }
@@ -51,20 +52,20 @@ class detailChatController: UIViewController, UITableViewDelegate, UITableViewDa
         let cRef = sRef.childByAutoId()
         
         //create data variable
-        let toID = "TestToID"
-        let fromID = "TestFromID"
+        let toID = chatPartner.getId()
+        let fromID = FIRAuth.auth()?.currentUser?.uid
         let timeStamp = Int(NSDate().timeIntervalSince1970)
         let messageValue = messageTextView.text!
         
         //set values
-        cRef.updateChildValues(["toID": toID, "fromID": fromID, "timeStamp": timeStamp, "messageValue": messageValue])
+        cRef.updateChildValues(["toID": toID, "fromID": fromID!, "timeStamp": timeStamp, "messageValue": messageValue])
         
         //reset the textField
         messageTextView.text = nil
         
         //make reference node for user to monitor messages
         //Give Index to current User
-        ref.child("UserMessages").child(fromID).updateChildValues([cRef.key: 1])
+        ref.child("UserMessages").child(fromID!).updateChildValues([cRef.key: 1])
         
         //Give Index to Recepient User
         ref.child("UserMessages").child(toID).updateChildValues([cRef.key: 1])
@@ -73,10 +74,10 @@ class detailChatController: UIViewController, UITableViewDelegate, UITableViewDa
 
     func observeMessages() {
         ref = FIRDatabase.database().reference()
-        let currentID = "TestFromID"
+        let currentID = FIRAuth.auth()?.currentUser?.uid
         //query the UserMessage to find any new messages references
         //self.group.enter()
-        self.ref.child("UserMessages").child(currentID).observe(.childAdded, with: { (snapshot) in
+        self.ref.child("UserMessages").child(currentID!).observe(.childAdded, with: { (snapshot) in
             let mID = snapshot.key
             //Query Messages to find the approriate message via reference Id (mID)
             self.ref.child("Messages").child(mID).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -85,7 +86,6 @@ class detailChatController: UIViewController, UITableViewDelegate, UITableViewDa
                     let mFromID = dictionary["fromID"] as? String ?? ""
                     let mTimeStamp = dictionary["timeStamp"] as? Int ?? 0
                     let mMessage = dictionary["messageValue"] as? String ?? ""
-                    print(mToID + ": " + mFromID + ": " + String(mTimeStamp) + ": " + mMessage)
                     
                     //add to array
                     let cM = MessageInfo(toID: mToID, fromID: mFromID, timeStamp: mTimeStamp, messageValue: mMessage)

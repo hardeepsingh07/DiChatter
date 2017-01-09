@@ -20,6 +20,7 @@ class friendsController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     var userFriends = [UserInfo]()
     var currentUser: UserInfo!
+    var passingUser: UserInfo!
     
     //Start Loading Data before View
     override func viewWillAppear(_ animated: Bool) {
@@ -95,6 +96,19 @@ class friendsController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         cell.fDelete.addTarget(self, action: #selector(friendsController.deleteUser(_:)), for: .touchUpInside)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.passingUser = userFriends[indexPath.row]
+        performSegue(withIdentifier: "friendsToChatDetail", sender: nil)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "friendsToChatDetail") {
+            let cdController = segue.destination as! detailChatController
+            cdController.chatPartner = self.passingUser
+        }
     }
     
     @IBAction func deleteUser(_ sender: UIButton) {

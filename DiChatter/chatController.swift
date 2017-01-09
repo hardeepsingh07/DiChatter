@@ -7,20 +7,24 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
+import FirebaseAuth
 
 class chatController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tView: UITableView!
     @IBOutlet weak var screenLabel: UIButton!
     
-    var user = [String]()
-    var passThis: String = ""
+    var message = [MessageInfo]()
+    var messageCatalog = [String: MessageInfo]()
+    
+    var ref: FIRDatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        user.append("Hello")
-        user.append("Bye")
+        //get the chats
+        observeChats()
         
     }
     
@@ -33,27 +37,59 @@ class chatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return user.count
+        return message.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = tableView.dequeueReusableCell(withIdentifier: "cCell", for: indexPath)
         
-        cell.textLabel?.text = user[indexPath.row]
+        let messageInfo = message[indexPath.row]
+        //need that partner id logic
+        if let toID = messageInfo.chatPartnerId() {
+            ref = FIRDatabase.database().reference()
+            self.ref.child("Users").child(toID).observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                cell.textLabel?.text = value?["Name"] as? String ?? ""
+            })
+        }
+        cell.detailTextLabel?.text = messageInfo.getMessageValue()
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.passThis = user[indexPath.row]
-        performSegue(withIdentifier: "chatDetail", sender: nil)
-//        let controller = storyboard?.instantiateViewController(withIdentifier: "chatDetail") as! chatDetailController
-//        present(controller, animated: true, completion: nil)
+    func getUser(id: String) -> String {
+        ref = FIRDatabase.database().reference()
+        var userName: String!
+        self.ref.child("Users").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            userName = value?["Name"] as? String ?? ""
+        })
+        print(userName)
+        return userName
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "chatDetail") {
-            let svc = segue.destination as! detailChatController
-            svc.name = self.passThis
-        }
+    func observeChats() {
+        ref = FIRDatabase.database().reference()
+        let currentID = FIRAuth.auth()?.currentUser?.uid
+        self.ref.child("UserMessages").child(currentID!).observe(.childAdded, with: { (snapshot) in
+            let mID = snapshot.key
+            //Query Messages to find the approriate message via reference Id (mID)
+            self.ref.child("Messages").child(mID).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    let mToID = dictionary["toID"] as? String ?? ""
+                    let mFromID = dictionary["fromID"] as? String ?? ""
+                    let mTimeStamp = dictionary["timeStamp"] as? Int ?? 0
+                    let mMessage = dictionary["messageValue"] as? String ?? ""
+                    
+                    //add to array
+                    let cM = MessageInfo(toID: mToID, fromID: mFromID, timeStamp: mTimeStamp, messageValue: mMessage)
+                    self.messageCatalog[mToID] = cM
+                    self.message = Array(self.messageCatalog.values)
+
+                    //reload table
+                    self.tView.reloadData()
+                }
+            }, withCancel: nil)
+        }, withCancel: nil)
+        
     }
 }

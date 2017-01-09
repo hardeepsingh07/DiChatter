@@ -11,16 +11,16 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
-class MessageInfo {
+class MessageInfo: NSObject {
     
     var toID: String?
     var fromID: String?
     var timeStamp: Int?
     var messageValue: String?
     
-//    func chatPartnerId() -> String? {
-//        return fromId == FIRAuth.auth()?.currentUser?.uid ? toId : fromId
-//    }
+    func chatPartnerId() -> String? {
+        return fromID == FIRAuth.auth()?.currentUser?.uid ? toID : fromID
+    }
     
     init(toID: String, fromID: String, timeStamp: Int, messageValue: String) {
         self.toID = toID 
