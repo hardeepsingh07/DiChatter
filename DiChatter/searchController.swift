@@ -26,9 +26,7 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
     var friends = [String]()
     var requested = [String]()
     var currentUser: UserInfo!
-    
-    var searching = false
-    
+        
     override func viewWillAppear(_ animated: Bool) {
         //Intialize the databse
         ref = FIRDatabase.database().reference()
@@ -53,11 +51,9 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //Animate Label
-        animateSearchLabel()
-        
-        //Animate Table
-        animateTable()
+        //Animate Label and Table
+        self.animateSearchLabel()
+        self.animateTable()
         
         //Reload Table
         self.filteredUsers = self.firebaseUsers
@@ -82,14 +78,14 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
         var userItem: UserInfo
         userItem = self.filteredUsers[indexPath.row]
         
-        cell.sName.text = userItem.getName()
-        cell.sEmail.text = userItem.getEmail()
+        cell.sName.text = userItem.name
+        cell.sEmail.text = userItem.email
         cell.sAdd.tag = indexPath.row
         cell.sAdd.addTarget(self, action: #selector(searchController.addUser(_:)), for: .touchUpInside)
         
-        //set button image for friends
+        //Set button image for friends
         for s in friends {
-            if(userItem.getId() == s) {
+            if(userItem.id == s) {
                 cell.sAdd.setImage(#imageLiteral(resourceName: "friendGrey"), for: .normal)
                 cell.sAdd.isEnabled = false
             }
@@ -97,19 +93,18 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
         
         //Set button image for already requested
         for s in requested {
-            if(userItem.getId() == s) {
+            if(userItem.id == s) {
                 cell.sAdd.setImage(#imageLiteral(resourceName: "timeGrey"), for: .normal)
                 cell.sAdd.isEnabled = false
             }
         }
-        
         return cell
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredUsers = searchText.isEmpty ? firebaseUsers : firebaseUsers.filter({( userInfo: UserInfo ) -> Bool in
             // If dataItem matches the searchText, return true to include it
-            return userInfo.getEmail().range(of: searchText, options: .caseInsensitive) != nil
+            return userInfo.email!.range(of: searchText, options: .caseInsensitive) != nil
         })
         tView.reloadData()
     }
@@ -121,33 +116,15 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
         sender.setImage(#imageLiteral(resourceName: "timeGrey"), for: .normal)
         
         //add to requested people list
-        self.ref.child("Users").child(self.currentUser.getId()).child("Requested")
-            .setValue([userItem.getId(): "null"])
+        self.ref.child("Users").child(self.currentUser.id!).child("Requested")
+            .setValue([userItem.id!: "null"])
         
         //request the selected user
-        self.ref.child("Users").child(userItem.getId()).child("Requests").child(currentUser.getId())
-            .setValue(["Name": self.currentUser.getName(), "Email": self.currentUser.getEmail()])
+        self.ref.child("Users").child(userItem.id!).child("Requests").child(currentUser.id!)
+            .setValue(["Name": self.currentUser.name!, "Email": self.currentUser.email!])
         
         //show confirmation
-        makeAlert(title: "Info", message: ("Request Sent: " + userItem.getName()))
-    }
-    
-    func animateSearchLabel() {
-        searchLabel.center.x = self.view.frame.width
-        searchLabel.alpha = 1.0
-        UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 0, initialSpringVelocity: 0.1, options: [],
-                       animations: ({
-                        self.searchLabel.center.x = self.view.frame.width / 2
-                       }), completion: nil)
-    }
-    
-    func animateTable() {
-        tView.center.y = self.view.frame.height + 100
-        tView.alpha = 1.0
-        UIView.animate(withDuration: 2.0, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.1, options: [],
-                       animations: ({
-                        self.tView.center.y = self.view.frame.height - 300
-                       }), completion: nil)
+        makeAlert(title: "Info", message: ("Request Sent: " + userItem.name!))
     }
     
     // Get all users from database
@@ -168,7 +145,7 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
     
     //get User Friends
     func getCurrentFriends() {
-        ref.child("Users").child(currentUser.getId()).child("Friends").observe(.value, with: { (snapshot) in
+        ref.child("Users").child(currentUser.id!).child("Friends").observe(.value, with: { (snapshot) in
             for user in snapshot.children {
                 let fId = (user as! FIRDataSnapshot).key
                 self.friends.append(fId)
@@ -180,7 +157,7 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
     
     //get User requested list
     func getUserRequestedList() {
-        ref.child("Users").child(currentUser.getId()).child("Requested").observe(.value, with: { (snapshot) in
+        ref.child("Users").child(currentUser.id!).child("Requested").observe(.value, with: { (snapshot) in
             for user in snapshot.children {
                 self.requested.append((user as! FIRDataSnapshot).key)
             }
@@ -195,5 +172,24 @@ class searchController: UIViewController, UITableViewDataSource, UITableViewDele
         let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         alertController.addAction(action)
         self.present(alertController, animated:true, completion: nil)
+    }
+    
+    //Animations
+    func animateSearchLabel() {
+        searchLabel.center.x = self.view.frame.width
+        searchLabel.alpha = 1.0
+        UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0, initialSpringVelocity: 0.1, options: [],
+                       animations: ({
+                        self.searchLabel.center.x = self.view.frame.width / 2
+                       }), completion: nil)
+    }
+    
+    func animateTable() {
+        tView.center.y = self.view.frame.height + 100
+        tView.alpha = 1.0
+        UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.1, options: [],
+                       animations: ({
+                        self.tView.center.y = self.view.frame.height - 300
+                       }), completion: nil)
     }
 }

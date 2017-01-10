@@ -51,46 +51,4 @@ class UserInfo: NSObject, NSCoding {
         self.number = aDecoder.decodeObject(forKey: "number") as? String
         self.gender = aDecoder.decodeObject(forKey: "gender") as? String
     }
-    
-    //Getters
-    func getId() -> String {
-        return self.id!
-    }
-    
-    func getName() -> String {
-        return self.name!
-    }
-    
-    func getEmail() -> String {
-        return self.email!
-    }
-    
-    func getNumber() -> String {
-        return self.number!
-    }
-    
-    func getGender() -> String {
-        return self.gender!
-    }
-    
-    //Setters
-    func setId(id: String){
-        self.id = id
-    }
-    
-    func setName(name: String){
-        self.name = name
-    }
-    
-    func setEmail(email: String){
-        self.email = email
-    }
-    
-    func setNumber(number: String){
-        self.number = number
-    }
-    
-    func setGender(gender: String){
-        self.gender = gender
-    }
 }

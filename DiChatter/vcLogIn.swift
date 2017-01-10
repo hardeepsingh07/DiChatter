@@ -27,7 +27,7 @@ class vcLogin : UIViewController {
         addImageTextView(textView: emailTextView, image: #imageLiteral(resourceName: "usernameWhite"))
         addImageTextView(textView: passwordTextView, image: #imageLiteral(resourceName: "passwordWhite"))
         
-        emailTextView.text = "user@yahoo.com"
+        emailTextView.text = "hardeep07@yahoo.com"
         passwordTextView.text = "123456"
         
     }
@@ -66,7 +66,6 @@ class vcLogin : UIViewController {
         login()
     }
     
-    
     @IBAction func forgotPassword(_ sender: Any) {
         makeAlert(title: "Notice", message: "Under Construction")
     }
@@ -94,7 +93,6 @@ class vcLogin : UIViewController {
             FIRAuth.auth()?.signIn(withEmail: emailTextView.text!, password: passwordTextView.text!, completion: { (user, error) in
                 if error == nil {
                     //move to next activity and send data
-                    //self.makeAlert(title: (user?.email)!, message: "Login Successful")
                     self.emailTextView.text = ""
                     self.passwordTextView.text = ""
                     self.performSegue(withIdentifier: "segueLItoMain", sender: nil)
@@ -104,7 +102,6 @@ class vcLogin : UIViewController {
             })
         }
     }
-    
     
     func makeAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)

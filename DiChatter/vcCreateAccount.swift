@@ -134,12 +134,3 @@ class vcCreateAccount: UIViewController {
         self.present(alertController, animated:true, completion: nil)
     }
 }
-
-
-
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if(segue.identifier == "segueCAtoMain") {
-//            let svc = segue.destination as! mainController;
-//            svc.userInfo = self.userInfo
-//        }
-//    }

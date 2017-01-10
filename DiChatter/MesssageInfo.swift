@@ -18,10 +18,6 @@ class MessageInfo: NSObject {
     var timeStamp: Int?
     var messageValue: String?
     
-    func chatPartnerId() -> String? {
-        return fromID == FIRAuth.auth()?.currentUser?.uid ? toID : fromID
-    }
-    
     init(toID: String, fromID: String, timeStamp: Int, messageValue: String) {
         self.toID = toID 
         self.fromID = fromID 
@@ -29,19 +25,7 @@ class MessageInfo: NSObject {
         self.messageValue = messageValue
     }
     
-    func getToID() -> String{
-        return self.toID!
-    }
-    
-    func getFromID() -> String {
-        return self.fromID!
-    }
-    
-    func getTimeStamp() -> Int {
-        return self.timeStamp!
-    }
-    
-    func getMessageValue() -> String {
-        return self.messageValue!
+    func chatPartnerId() -> String? {
+        return fromID == FIRAuth.auth()?.currentUser?.uid ? toID : fromID
     }
 }

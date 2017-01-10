@@ -47,33 +47,13 @@ class friendsController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //Animate ScreenLabel
+        //Animate ScreenLabel and TableView
         self.animateFriendLabel()
-        
-        //Animate TableView
         self.animateTable()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    func animateFriendLabel() {
-        labelButton.center.x = self.view.frame.width - 400
-        labelButton.alpha = 1.0
-        UIView.animate(withDuration: 2.0, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.1, options: [],
-                       animations: ({
-                        self.labelButton.center.x = self.view.frame.width - 190
-                       }), completion: nil)
-    }
-    
-    func animateTable() {
-        tView.center.y = self.view.frame.height + 100
-        tView.alpha = 1.0
-        UIView.animate(withDuration: 2.0, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.1, options: [],
-                       animations: ({
-                        self.tView.center.y = self.view.frame.height - 300
-                       }), completion: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -85,13 +65,12 @@ class friendsController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "fCell", for: indexPath) as! friendTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "fCell", for: indexPath)
         
-        cell.fName.text = userFriends[indexPath.row].getName()
-        cell.fEmail.text = userFriends[indexPath.row].getEmail()
-        cell.fDelete.tag = indexPath.row
-        
-        cell.fDelete.addTarget(self, action: #selector(friendsController.deleteUser(_:)), for: .touchUpInside)
+        cell.textLabel?.text = userFriends[indexPath.row].name
+        cell.detailTextLabel?.text = userFriends[indexPath.row].email
+//        cell.fDelete.tag = indexPath.row
+//        cell.fDelete.addTarget(self, action: #selector(friendsController.deleteUser(_:)), for: .touchUpInside)
         return cell
     }
     
@@ -108,28 +87,9 @@ class friendsController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
     }
     
-    @IBAction func deleteUser(_ sender: UIButton) {
-        let userInfo = userFriends[sender.tag]
-        let alertController = UIAlertController(title: "Delete", message: "User will be removed from friend list permanently", preferredStyle: .alert)
-        let delete = UIAlertAction(title: "Delete It", style: .destructive) { (action) in
-            //remove from current user friend list
-            self.ref.child("Users").child(self.currentUser.getId()).child("Friends").child(userInfo.getId()).removeValue()
-            
-            //remove current user from other user friend list
-            self.ref.child("Users").child(userInfo.getId()).child("Friends").child(self.currentUser.getId()).removeValue()
-            
-            self.userFriends.remove(at: sender.tag)
-            self.tView.reloadData()
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(delete)
-        alertController.addAction(cancel)
-        self.present(alertController, animated:true, completion: nil)
-    }
-    
     //get User Requests
     func getUserData() {
-        ref.child("Users").child(currentUser.getId()).child("Friends").observe(.value, with: { (snapshot) in
+        ref.child("Users").child(currentUser.id!).child("Friends").observe(.value, with: { (snapshot) in
             for user in snapshot.children {
                 let fId = (user as! FIRDataSnapshot).key
                 
@@ -155,4 +115,42 @@ class friendsController: UIViewController, UITableViewDelegate, UITableViewDataS
         alertController.addAction(action)
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    //Animations
+    func animateFriendLabel() {
+        labelButton.center.x = self.view.frame.width - 400
+        labelButton.alpha = 1.0
+        UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.1, options: [],
+                       animations: ({
+                        self.labelButton.center.x = self.view.frame.width - 190
+                       }), completion: nil)
+    }
+    
+    func animateTable() {
+        tView.center.y = self.view.frame.height + 100
+        tView.alpha = 1.0
+        UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.1, options: [],
+                       animations: ({
+                        self.tView.center.y = self.view.frame.height - 300
+                       }), completion: nil)
+    }
 }
+
+//    @IBAction func deleteUser(_ sender: UIButton) {
+//        let userInfo = userFriends[sender.tag]
+//        let alertController = UIAlertController(title: "Delete", message: "User will be removed from friend list permanently", preferredStyle: .alert)
+//        let delete = UIAlertAction(title: "Delete It", style: .destructive) { (action) in
+//            //remove from current user friend list
+//            self.ref.child("Users").child(self.currentUser.getId()).child("Friends").child(userInfo.getId()).removeValue()
+//
+//            //remove current user from other user friend list
+//            self.ref.child("Users").child(userInfo.getId()).child("Friends").child(self.currentUser.getId()).removeValue()
+//
+//            self.userFriends.remove(at: sender.tag)
+//            self.tView.reloadData()
+//        }
+//        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//        alertController.addAction(delete)
+//        alertController.addAction(cancel)
+//        self.present(alertController, animated:true, completion: nil)
+//    }

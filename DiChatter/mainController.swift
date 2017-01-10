@@ -91,8 +91,6 @@ class mainController: UIViewController {
         let userArray = [userInfo]
         let savedData = NSKeyedArchiver.archivedData(withRootObject: userArray)
         defaults.set(savedData, forKey: "user")
-        print("***User Saved!***)")
     }
 }
-
 

@@ -24,9 +24,18 @@ class chatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //show later
+        tView.alpha = 0.0
+        screenLabel.alpha = 0.0
+        
         //get the chats
         observeChats()
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //Animate the Table and Label
+        self.animateTable()
+        self.animateLabel()
     }
     
     override func didReceiveMemoryWarning() {
@@ -53,7 +62,7 @@ class chatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.textLabel?.text = value?["Name"] as? String ?? ""
             })
         }
-        cell.detailTextLabel?.text = messageInfo.getMessageValue()
+        cell.detailTextLabel?.text = messageInfo.messageValue
         return cell
     }
     
@@ -96,6 +105,24 @@ class chatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             }, withCancel: nil)
         }, withCancel: nil)
-        
+    }
+    
+    //Animations
+    func animateTable() {
+        tView.center.y = self.view.frame.height + 100
+        tView.alpha = 1.0
+        UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.1, options: [],
+                       animations: ({
+                        self.tView.center.y = self.view.frame.height - 300
+                       }), completion: nil)
+    }
+    
+    func animateLabel() {
+        screenLabel.center.y = self.view.frame.height + 100
+        screenLabel.alpha = 1.0
+        UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.1, options: [],
+                       animations: ({
+                        self.screenLabel.center.y = self.view.frame.height - 610
+                       }), completion: nil)
     }
 }

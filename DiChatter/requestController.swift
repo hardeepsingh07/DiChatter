@@ -47,33 +47,13 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //Animate ScreenLabel
+        //Animate ScreenLabel and Table
         self.animateRequestLabel()
-        
-        //Animate TableView
         self.animateTable()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    func animateRequestLabel() {
-        requestButtonOutlet.center.x = self.view.frame.width + 150
-        requestButtonOutlet.alpha = 1.0
-        UIView.animate(withDuration: 2.0, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.1, options: [],
-                       animations: ({
-                        self.requestButtonOutlet.center.x = self.view.frame.width - 185
-                       }), completion: nil)
-    }
-    
-    func animateTable() {
-        tView.center.y = self.view.frame.height + 100
-        tView.alpha = 1.0
-        UIView.animate(withDuration: 2.0, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.1, options: [],
-                       animations: ({
-                        self.tView.center.y = self.view.frame.height - 300
-                       }), completion: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -87,8 +67,8 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "rCell", for: indexPath) as! requestTableViewCell
         
-        cell.rName.text = userRequests[indexPath.row].getName()
-        cell.rEmail.text = userRequests[indexPath.row].getEmail()
+        cell.rName.text = userRequests[indexPath.row].name
+        cell.rEmail.text = userRequests[indexPath.row].email
         cell.rAccept.tag = indexPath.row
         cell.rDecline.tag = indexPath.row
         
@@ -101,25 +81,25 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
         let userInfo = userRequests[sender.tag]
         
         //move to friends list
-        self.ref.child("Users").child(self.currentUser.getId()).child("Friends").child(userInfo.getId())
-            .setValue(["Name": userInfo.getName(), "Email": userInfo.getEmail()])
+        self.ref.child("Users").child(self.currentUser.id!).child("Friends").child(userInfo.id!)
+            .setValue(["Name": userInfo.name!, "Email": userInfo.email!])
         
         //add to current user to requestee friend list
-        self.ref.child("Users").child(userInfo.getId()).child("Friends").child(self.currentUser.getId())
-            .setValue(["Name": self.currentUser.getName(), "Email": self.currentUser.getEmail()])
+        self.ref.child("Users").child(userInfo.id!).child("Friends").child(self.currentUser.id!)
+            .setValue(["Name": self.currentUser.name!, "Email": self.currentUser.email!])
         
         //remove from request list
-        self.ref.child("Users").child(self.currentUser.getId()).child("Requests").child(userInfo.getId()).removeValue()
+        self.ref.child("Users").child(self.currentUser.id!).child("Requests").child(userInfo.id!).removeValue()
         
         //remove current user from requestee requsted list
-        self.ref.child("Users").child(userInfo.getId()).child("Requested").child(currentUser.getId()).removeValue()
+        self.ref.child("Users").child(userInfo.id!).child("Requested").child(currentUser.id!).removeValue()
         
         //remove from table
         self.userRequests.remove(at: sender.tag)
         self.tView.reloadData()
         
         //show success alert
-        self.makeAlert(title: "Success", message: "You are now friends with " + userInfo.getName())
+        self.makeAlert(title: "Success", message: "You are now friends with " + userInfo.name!)
     }
     
     @IBAction func decline(_ sender: UIButton) {
@@ -127,10 +107,10 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
         let alertController = UIAlertController(title: "Delete", message: "Request will be deleted permanently. Requestee will be given another chance to request.", preferredStyle: .alert)
         let delete = UIAlertAction(title: "Delete It", style: .destructive) { (action) in
             //remove from request list and list
-            self.ref.child("Users").child(self.currentUser.getId()).child("Requests").child(userInfo.getId()).removeValue()
+            self.ref.child("Users").child(self.currentUser.id!).child("Requests").child(userInfo.id!).removeValue()
             
             //remove current user from requestee requsted list
-            self.ref.child("Users").child(userInfo.getId()).child("Requested").child(self.currentUser.getId()).removeValue()
+            self.ref.child("Users").child(userInfo.id!).child("Requested").child(self.currentUser.id!).removeValue()
             
             self.userRequests.remove(at: sender.tag)
             self.tView.reloadData()
@@ -143,7 +123,7 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     //get User Requests
     func getUserData() {
-        ref.child("Users").child(currentUser.getId()).child("Requests").observe(.value, with: { (snapshot) in
+        ref.child("Users").child(currentUser.id!).child("Requests").observe(.value, with: { (snapshot) in
             for user in snapshot.children {
                 let fId = (user as! FIRDataSnapshot).key
                 
@@ -169,28 +149,23 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
         alertController.addAction(action)
         self.present(alertController, animated:true, completion: nil)
     }
+    
+    //Animations
+    func animateRequestLabel() {
+        requestButtonOutlet.center.x = self.view.frame.width + 150
+        requestButtonOutlet.alpha = 1.0
+        UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.1, options: [],
+                       animations: ({
+                        self.requestButtonOutlet.center.x = self.view.frame.width - 185
+                       }), completion: nil)
+    }
+    
+    func animateTable() {
+        tView.center.y = self.view.frame.height + 100
+        tView.alpha = 1.0
+        UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.1, options: [],
+                       animations: ({
+                        self.tView.center.y = self.view.frame.height - 300
+                       }), completion: nil)
+    }
 }
-
-
-
-
-
-//    //get all user information
-//    func getUsers() {
-//        ref.child("Users").observe(.value, with: { (snapshot) in
-//            for user in snapshot.children {
-//                let userId = ((user as! FIRDataSnapshot).key)
-//                let name = ((user as! FIRDataSnapshot).value! as! NSDictionary)["Name"] as! String
-//                let email = ((user as! FIRDataSnapshot).value! as! NSDictionary)["Email"] as! String
-//
-//                let userInfo = UserInfo()
-//                userInfo.customUser(id: userId, name: name, email: email)
-//                self.allUsers.append(userInfo)
-//
-//                print("******* GetUsers: " + userId + name + email)
-//             }
-//        }) { (error) in
-//            self.makeAlert(title: "Ok", message: error.localizedDescription)
-//        }
-//    }
-

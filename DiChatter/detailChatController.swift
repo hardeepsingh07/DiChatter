@@ -29,6 +29,15 @@ class detailChatController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //show later
+        tView.alpha = 0.0
+        nameOfUserLabel.alpha = 0.0
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //Animate Table View
+        self.animateTable()
+        self.animateLabel()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -43,8 +52,14 @@ class detailChatController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "cdCell", for: indexPath)
         
         let m = messagesArray[indexPath.row]
-        cell.textLabel?.text = m.getMessageValue()
+        cell.textLabel?.text = m.messageValue
         
+        if(m.fromID == FIRAuth.auth()?.currentUser?.uid) {
+            cell.textLabel?.textAlignment = .right
+        } else {
+            cell.textLabel?.textAlignment = .left
+            cell.textLabel?.textColor = UIColor.darkGray
+        }
         return cell
     }
     @IBAction func sendAction(_ sender: Any) {
@@ -52,13 +67,13 @@ class detailChatController: UIViewController, UITableViewDelegate, UITableViewDa
         let cRef = sRef.childByAutoId()
         
         //create data variable
-        let toID = chatPartner.getId()
+        let toID = chatPartner.id
         let fromID = FIRAuth.auth()?.currentUser?.uid
         let timeStamp = Int(NSDate().timeIntervalSince1970)
         let messageValue = messageTextView.text!
         
         //set values
-        cRef.updateChildValues(["toID": toID, "fromID": fromID!, "timeStamp": timeStamp, "messageValue": messageValue])
+        cRef.updateChildValues(["toID": toID!, "fromID": fromID!, "timeStamp": timeStamp, "messageValue": messageValue])
         
         //reset the textField
         messageTextView.text = nil
@@ -68,7 +83,7 @@ class detailChatController: UIViewController, UITableViewDelegate, UITableViewDa
         ref.child("UserMessages").child(fromID!).updateChildValues([cRef.key: 1])
         
         //Give Index to Recepient User
-        ref.child("UserMessages").child(toID).updateChildValues([cRef.key: 1])
+        ref.child("UserMessages").child(toID!).updateChildValues([cRef.key: 1])
 
     }
     
@@ -83,14 +98,13 @@ class detailChatController: UIViewController, UITableViewDelegate, UITableViewDa
                 
                 self.chatPartner = UserInfo(id: self.chatPartnerIDfromChat, name: pName, email: pEmail)
                 
-                //update UI user name label
-                self.nameOfUserLabel.text = self.chatPartner.getName()
+                //Wait for the data and update UI user name label
+                self.nameOfUserLabel.text = self.chatPartner.name
             })
         } else {
             //Update UI with user name label
-            self.nameOfUserLabel.text = self.chatPartner.getName()
+            self.nameOfUserLabel.text = self.chatPartner.name
         }
-        
         //Load all messages after current user and partner data is retrieved
         self.observeMessages()
     }
@@ -112,12 +126,28 @@ class detailChatController: UIViewController, UITableViewDelegate, UITableViewDa
                     
                     //add to array
                     let messageObject = MessageInfo(toID: mToID, fromID: mFromID, timeStamp: mTimeStamp, messageValue: mMessage)
-                    if self.chatPartner.getId() == messageObject.chatPartnerId()  {
+                    if self.chatPartner.id == messageObject.chatPartnerId()  {
                         self.messagesArray.append(messageObject)
                         self.tView.reloadData()
                     }
                 }
             }, withCancel: nil)
         }, withCancel: nil)
+    }
+    
+    //Animations
+    func animateTable() {
+        tView.center.y = self.view.frame.height + 100
+        tView.alpha = 1.0
+        UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.1, options: [],
+                       animations: ({
+                        self.tView.center.y = self.view.frame.height - 325
+                       }), completion: nil)
+    }
+
+    func animateLabel() {
+        UIView.animate(withDuration: 1.5, animations: ({
+            self.nameOfUserLabel.alpha = 1
+        }), completion: nil)
     }
 }
