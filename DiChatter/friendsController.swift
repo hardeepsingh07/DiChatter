@@ -50,9 +50,6 @@ class friendsController: UIViewController, UITableViewDelegate, UITableViewDataS
         //Animate ScreenLabel
         self.animateFriendLabel()
         
-        //reload table
-        self.tView.reloadData()
-        
         //Animate TableView
         self.animateTable()
     }
@@ -142,6 +139,9 @@ class friendsController: UIViewController, UITableViewDelegate, UITableViewDataS
                 
                 let userInfo = UserInfo(id: fId, name: fName, email: fEmail)
                 self.userFriends.append(userInfo)
+                
+                //reload table
+                self.tView.reloadData()
             }
         }) { (error) in
             self.makeAlert(title: "Error", message: error.localizedDescription)

@@ -50,9 +50,6 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
         //Animate ScreenLabel
         self.animateRequestLabel()
         
-        //reload table
-        self.tView.reloadData()
-        
         //Animate TableView
         self.animateTable()
     }
@@ -156,6 +153,9 @@ class requestController: UIViewController, UITableViewDelegate, UITableViewDataS
                 
                 let userInfo = UserInfo(id: fId, name: fName, email: fEmail)
                 self.userRequests.append(userInfo)
+                
+                //reload table
+                self.tView.reloadData()
             }
         }) { (error) in
             self.makeAlert(title: "Error", message: error.localizedDescription)

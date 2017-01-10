@@ -20,6 +20,7 @@ class chatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var messageCatalog = [String: MessageInfo]()
     
     var ref: FIRDatabaseReference!
+    var selectedID: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +45,7 @@ class chatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell  = tableView.dequeueReusableCell(withIdentifier: "cCell", for: indexPath)
         
         let messageInfo = message[indexPath.row]
-        //need that partner id logic
+        //Get User name from toID
         if let toID = messageInfo.chatPartnerId() {
             ref = FIRDatabase.database().reference()
             self.ref.child("Users").child(toID).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -56,15 +57,18 @@ class chatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
-    func getUser(id: String) -> String {
-        ref = FIRDatabase.database().reference()
-        var userName: String!
-        self.ref.child("Users").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
-            let value = snapshot.value as? NSDictionary
-            userName = value?["Name"] as? String ?? ""
-        })
-        print(userName)
-        return userName
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let id = message[indexPath.row].chatPartnerId() {
+            selectedID = id
+            performSegue(withIdentifier: "chatToChatDetail", sender: nil)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "chatToChatDetail" {
+            let cdController = segue.destination as! detailChatController
+            cdController.chatPartnerIDfromChat = self.selectedID
+        }
     }
     
     func observeChats() {
@@ -80,11 +84,13 @@ class chatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let mTimeStamp = dictionary["timeStamp"] as? Int ?? 0
                     let mMessage = dictionary["messageValue"] as? String ?? ""
                     
-                    //add to array
-                    let cM = MessageInfo(toID: mToID, fromID: mFromID, timeStamp: mTimeStamp, messageValue: mMessage)
-                    self.messageCatalog[mToID] = cM
-                    self.message = Array(self.messageCatalog.values)
-
+                    //add to array using directory logic
+                    let messageObject = MessageInfo(toID: mToID, fromID: mFromID, timeStamp: mTimeStamp, messageValue: mMessage)
+                    if let cPID = messageObject.chatPartnerId()  {
+                        self.messageCatalog[cPID] = messageObject
+                        self.message = Array(self.messageCatalog.values)
+                    }
+            
                     //reload table
                     self.tView.reloadData()
                 }

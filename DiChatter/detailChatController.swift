@@ -15,16 +15,16 @@ class detailChatController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var tView: UITableView!
     @IBOutlet weak var messageTextView: UITextField!
+    @IBOutlet weak var nameOfUserLabel: UILabel!
 
     var chatPartner: UserInfo!
+    var chatPartnerIDfromChat: String!
     var ref: FIRDatabaseReference!
     var messagesArray = [MessageInfo]()
     
     override func viewWillAppear(_ animated: Bool) {
-        print(chatPartner.getId(), chatPartner.getName(), chatPartner.getEmail())
-        
-        //Load all messages
-        observeMessages()
+        // intial setup partner data and message retrival calls
+        startProcess()
     }
     
     override func viewDidLoad() {
@@ -71,6 +71,29 @@ class detailChatController: UIViewController, UITableViewDelegate, UITableViewDa
         ref.child("UserMessages").child(toID).updateChildValues([cRef.key: 1])
 
     }
+    
+    func startProcess() {
+        //get Partner data
+        if(chatPartner == nil) {
+            ref = FIRDatabase.database().reference()
+            self.ref.child("Users").child(chatPartnerIDfromChat).observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                let pName = value?["Name"] as? String ?? ""
+                let pEmail = value?["Email"] as? String ?? ""
+                
+                self.chatPartner = UserInfo(id: self.chatPartnerIDfromChat, name: pName, email: pEmail)
+                
+                //update UI user name label
+                self.nameOfUserLabel.text = self.chatPartner.getName()
+            })
+        } else {
+            //Update UI with user name label
+            self.nameOfUserLabel.text = self.chatPartner.getName()
+        }
+        
+        //Load all messages after current user and partner data is retrieved
+        self.observeMessages()
+    }
 
     func observeMessages() {
         ref = FIRDatabase.database().reference()
@@ -88,12 +111,13 @@ class detailChatController: UIViewController, UITableViewDelegate, UITableViewDa
                     let mMessage = dictionary["messageValue"] as? String ?? ""
                     
                     //add to array
-                    let cM = MessageInfo(toID: mToID, fromID: mFromID, timeStamp: mTimeStamp, messageValue: mMessage)
-                    self.messagesArray.append(cM)
-                    self.tView.reloadData()
+                    let messageObject = MessageInfo(toID: mToID, fromID: mFromID, timeStamp: mTimeStamp, messageValue: mMessage)
+                    if self.chatPartner.getId() == messageObject.chatPartnerId()  {
+                        self.messagesArray.append(messageObject)
+                        self.tView.reloadData()
+                    }
                 }
             }, withCancel: nil)
         }, withCancel: nil)
-        
     }
 }
