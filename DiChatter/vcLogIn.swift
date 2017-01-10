@@ -19,35 +19,10 @@ class vcLogin : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //put border under textviews
-        addBorderToTextView(incomingField: emailTextView)
-        addBorderToTextView(incomingField: passwordTextView)
         
-        //add image icons to textfields
-        addImageTextView(textView: emailTextView, image: #imageLiteral(resourceName: "usernameWhite"))
-        addImageTextView(textView: passwordTextView, image: #imageLiteral(resourceName: "passwordWhite"))
+//        emailTextView.text = "hardeep07@yahoo.com"
+//        passwordTextView.text = "123456"
         
-        emailTextView.text = "hardeep07@yahoo.com"
-        passwordTextView.text = "123456"
-        
-    }
-    
-    func addImageTextView(textView: UITextField, image: UIImage) {
-        textView.leftViewMode = UITextFieldViewMode.always
-        let eImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
-        eImageView.image = image
-        textView.leftView = eImageView
-    }
-    
-    func addBorderToTextView(incomingField: UITextField) {
-        let border = CALayer()
-        let width = CGFloat(1.0)
-        border.borderColor = UIColor.white.cgColor
-        border.frame = CGRect(x: 0, y: incomingField.frame.size.height - width,
-                              width:  incomingField.frame.size.width, height: incomingField.frame.size.height)
-        border.borderWidth = width
-        incomingField.layer.addSublayer(border)
-        incomingField.layer.masksToBounds = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -111,5 +86,23 @@ class vcLogin : UIViewController {
         self.present(alertController, animated:true, completion: nil)
     }
 }
+
+//    func addImageTextView(textView: UITextField, image: UIImage) {
+//        textView.leftViewMode = UITextFieldViewMode.always
+//        let eImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
+//        eImageView.image = image
+//        textView.leftView = eImageView
+//    }
+//
+//    func addBorderToTextView(incomingField: UITextField) {
+//        let border = CALayer()
+//        let width = CGFloat(1.0)
+//        border.borderColor = UIColor.white.cgColor
+//        border.frame = CGRect(x: 0, y: incomingField.frame.size.height - width,
+//                              width:  incomingField.frame.size.width, height: incomingField.frame.size.height)
+//        border.borderWidth = width
+//        incomingField.layer.addSublayer(border)
+//        incomingField.layer.masksToBounds = true
+//    }
 
 

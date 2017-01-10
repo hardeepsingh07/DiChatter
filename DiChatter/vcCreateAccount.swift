@@ -23,18 +23,6 @@ class vcCreateAccount: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //add border to all textviews
-        addBorderToTextView(incomingField: nameTextView)
-        addBorderToTextView(incomingField: emailTextView)
-        addBorderToTextView(incomingField: passwordTextView)
-        addBorderToTextView(incomingField: numberTextView)
-        
-        //add image to all textviews
-        addImageTextView(textView: nameTextView, image: #imageLiteral(resourceName: "nameWhite"))
-        addImageTextView(textView: emailTextView, image: #imageLiteral(resourceName: "emailWhite"))
-        addImageTextView(textView: passwordTextView, image: #imageLiteral(resourceName: "passwordWhite"))
-        addImageTextView(textView: numberTextView, image: #imageLiteral(resourceName: "phoneWhite"))
-        
         //Intitalize the database
         ref = FIRDatabase.database().reference();
     }

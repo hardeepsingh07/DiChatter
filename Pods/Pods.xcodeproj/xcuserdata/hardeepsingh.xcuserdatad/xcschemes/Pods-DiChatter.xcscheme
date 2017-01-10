@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A0DB55F076019CC8B23C070436FE43A9"
+               BlueprintIdentifier = "E341B523C8791F22610BF3727DA1F465"
                BuildableName = "Pods_DiChatter.framework"
                BlueprintName = "Pods-DiChatter"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A0DB55F076019CC8B23C070436FE43A9"
+            BlueprintIdentifier = "E341B523C8791F22610BF3727DA1F465"
             BuildableName = "Pods_DiChatter.framework"
             BlueprintName = "Pods-DiChatter"
             ReferencedContainer = "container:Pods.xcodeproj">

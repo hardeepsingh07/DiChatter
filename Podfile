@@ -9,4 +9,7 @@ target 'DiChatter' do
   pod 'Firebase/Core'
   pod 'FirebaseAuth'
   pod 'Firebase/Database'
+
+  # Frameworks
+  pod 'TextFieldEffects'
 end

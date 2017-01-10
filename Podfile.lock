@@ -35,11 +35,13 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.0)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.0)
   - GTMSessionFetcher/Core (1.1.7)
+  - TextFieldEffects (1.3.0)
 
 DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - FirebaseAuth
+  - TextFieldEffects
 
 SPEC CHECKSUMS:
   Firebase: 387f37c7dca894a02708da9ff35ba147040eae9e
@@ -52,7 +54,8 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
+  TextFieldEffects: ef594746f17997c813e07633f8ae5acaf9b04f27
 
-PODFILE CHECKSUM: 19390654b12deaa1e57cbca5e1aa6101344829a9
+PODFILE CHECKSUM: e37c36396e00fe1edc0a97d51d2b00e1e97af0c2
 
 COCOAPODS: 1.1.1
